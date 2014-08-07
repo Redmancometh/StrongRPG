@@ -1,0 +1,23 @@
+name: BlackLance
+main: BlackLance.BlackLance
+version: 1.0
+commands:
+   setup:
+      description: Join the game.
+      usage: /join
+   createwarpvendor:
+      description: Create a warp vendor
+      usage: /createwarpvendor [name]
+   wm:
+      description: Warp Menu
+      usage: Just use /homes, no arguments.
+   blreload:
+      description: Reload
+      usage: /breload
+   blevel:
+      description: Reload
+      usage: /breload
+   bs:
+      description: Reload
+      usage: /breload
+depend: [Citizens]

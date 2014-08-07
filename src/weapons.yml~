@@ -1,0 +1,12 @@
+Weapon Name:
+	- Iron_Sword
+	- ldmg: 7
+	- hdmg: 10
+	- lore: This is lore
+Noobstick:
+	- Iron_Sword
+	- 6
+	- 9
+	- This is lore
+
+	
