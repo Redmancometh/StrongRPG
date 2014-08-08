@@ -48,8 +48,6 @@ private Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getP
 	{
 		if(health+d<maxhealth){health+=d;}
 		else{health=maxhealth;}
-    	String healthdisplay = ChatColor.DARK_GREEN+"Health:  "+ChatColor.DARK_RED+health+"/"+maxhealth;
- 		//BarAPI.setMessage(p, healthdisplay, (Math.abs(health/maxhealth)*100));
 	}
 	public void damagePlayer(int damage, Player p)
 	{
