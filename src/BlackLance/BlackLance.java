@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import Listeners.*;
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.Trait;
@@ -35,15 +36,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.earth2me.essentials.Essentials;
 
-import Listeners.BlockListeners;
-import Listeners.CombatListeners;
-import Listeners.ConsumableListener;
-import Listeners.DropListeners;
-import Listeners.ExperienceListeners;
-import Listeners.ItemListeners;
-import Listeners.MenuListeners;
-import Listeners.NPCListeners;
-import Listeners.PlayerListeners;
 import Objectives.ObjectiveProcessor;
 import Storage.DataGetter;
 import Storage.DataSetter;
@@ -78,6 +70,7 @@ public class BlackLance extends JavaPlugin
 	    pm.registerEvents(new MenuListeners(this), this);
 	    pm.registerEvents(new ItemListeners(this), this);
 	    pm.registerEvents(new ConsumableListener(this), this);
+        pm.registerEvents(new TradeListener(), this);
 		net.citizensnpcs.api.CitizensAPI.getTraitFactory().registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(blm.class).withName("blm"));	
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() 

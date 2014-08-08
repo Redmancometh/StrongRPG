@@ -60,7 +60,7 @@ public class PlayerListeners implements Listener
 		this.dg = new DataGetter(pl);
 	}
 	@EventHandler
-	public void createRPGPLayer(final PlayerLoginEvent event) throws Exception
+	public void createRPGPlayer(final PlayerLoginEvent event) throws Exception
 	{
 		final Player p = event.getPlayer();
 		if(RPGPlayers.getRPGPlayer(p)==null)
