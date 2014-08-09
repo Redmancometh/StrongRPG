@@ -1,6 +1,7 @@
 package Listeners;
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +24,18 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
+import org.sqlite.JDBC;
 
 import BlackLance.RPGPlayer;
+import Storage.DBUtil;
 import Storage.DataGetter;
 import Storage.DataSetter;
 import Storage.RPGPlayers;
@@ -39,7 +44,6 @@ import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
 import com.trc202.CombatTag.CombatTag;
 import com.trc202.CombatTagApi.CombatTagApi;
-
 public class PlayerListeners implements Listener
 {
     Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
@@ -50,6 +54,8 @@ public class PlayerListeners implements Listener
     private File configFile;
     private DataGetter dg;
     private DataSetter ds;
+    private RPGPlayer rp;
+    BukkitTask healTask;
 
     public PlayerListeners(JavaPlugin pl, File configFile)
     {
@@ -63,30 +69,40 @@ public class PlayerListeners implements Listener
 	this.ds = new DataSetter(pl);
 	this.dg = new DataGetter(pl);
     }
-
     @EventHandler
     public void createRPGPlayer(final PlayerLoginEvent event) throws Exception
     {
 	final Player p = event.getPlayer();
 	if (RPGPlayers.getRPGPlayer(p) == null&&event.getResult()==Result.ALLOWED)
 	{
-	    final RPGPlayer rp = new RPGPlayer(pl);
-	    RPGPlayers.addRPGPlayer(p, rp);
-	    rp.setHealth(p);
-	    new BukkitRunnable()
+	    if(DBUtil.doesPlayerExist(p))
+	    {
+		ResultSet rs = DBUtil.getPlayerData(p);
+		rp = RPGPlayer.createRPGPLayer(rs, p);
+		RPGPlayers.addRPGPlayer(p, rp);
+	    }
+	    else
+	    {
+		DBUtil.addPlayer(p);
+		rp = new RPGPlayer(p, DBUtil.getUID(p), 0, 30, 30);
+		RPGPlayers.addRPGPlayer(p, rp);
+	    }
+	    rp.setMaxHealth(p);
+	    healTask = new BukkitRunnable()
 	    {
 		public void run()
 		{
-		    float health = (rp.getHealth() / rp.getMaxHealth());
 		    if (!p.isDead())
 		    {
 			rp.healPlayer(((p.getLevel()) + 2), p);
-			p.setHealth(rp.getHealth() / rp.getMaxHealth() * 20);
+			p.setHealth((double)rp.getHealth() / (double)rp.getMaxHealth() * 20);
 			String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + rp.getHealth() + "/" + rp.getMaxHealth();
-			BarAPI.setMessage(p, healthdisplay, rp.getHealth() / rp.getMaxHealth() * 100);
+			float health = ((float)rp.getHealth()/(float)rp.getMaxHealth());
+			rp.setMaxHealth(p);
+			BarAPI.setMessage(p, healthdisplay, health*100);
 		    }
 		}
-	    }.runTaskTimer(pl, 10, 65);
+	    }.runTaskTimer(pl, 10, 185);
 	}
 	if (event.getPlayer() != null)
 	{
@@ -107,14 +123,24 @@ public class PlayerListeners implements Listener
 	    }
 	}
     }
-
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e)
+    {
+	Player p = e.getEntity();
+	RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
+    }
+    @EventHandler
+    public void onLogout(PlayerQuitEvent e)
+    {
+	healTask.cancel();
+    }
     @EventHandler
     public void returnHome(PlayerRespawnEvent event) throws Exception
     {
 	final User u = ess.getUser(event.getPlayer());
 	final Player p = event.getPlayer();
 	RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
-	rp.setHealth(p);
+	rp.setMaxHealth(p);
 	if (u.getHome("home") != null)
 	{
 	    Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable()

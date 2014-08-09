@@ -30,7 +30,7 @@ public class RPGPlayers
 	{
 		RPGPlayers.put(p, rp);
 	}
-	public static void addXP(Player p, double xp)
+	public static void addXP(Player p, int xp)
 	{
 		RPGPlayer rp = RPGPlayers.get(p);
 		User u = rp.getUser(p);
@@ -42,12 +42,12 @@ public class RPGPlayers
 			{
 				if(p.getExpToLevel()-cexp==1)
 				{
-					p.sendMessage(ChatColor.GOLD+"Congratulations on level "+(p.getLevel()+1)+"!");
-					rp.setHealth(p);
-			    	String healthdisplay = ChatColor.DARK_GREEN+"Health:  "+ChatColor.DARK_RED+rp.getHealth()+"/"+rp.getMaxHealth();
-			 		BarAPI.setMessage(p, healthdisplay, (Math.abs(rp.getHealth()/rp.getMaxHealth())*100));
+				    p.sendMessage(ChatColor.GOLD+"Congratulations on level "+(p.getLevel()+1)+"!");
+				    rp.setMaxHealth(p);
+				    String healthdisplay = ChatColor.DARK_GREEN+"Health:  "+ChatColor.DARK_RED+rp.getHealth()+"/"+rp.getMaxHealth();
+				    BarAPI.setMessage(p, healthdisplay, (Math.abs(rp.getHealth()/rp.getMaxHealth())*100));
 				}
-				rp.setXP(rp.getXP()-100);
+				rp.setXP((int) (rp.getXP()-100));
 				u.giveExp(1);
 			}
 		}
