@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -102,6 +103,46 @@ public class CommandParser implements CommandExecutor
 	{
 	    try{DBUtil.setup(BlackLance.c);}
 	    catch (SQLException e){e.printStackTrace();}
+	}
+	if(cmd.getName().equalsIgnoreCase("resource"))
+	{
+	    if(args[0].equalsIgnoreCase("add"))
+	    {
+		Bukkit.broadcastMessage("ADD");
+		try
+		{
+		    Block b = p.getLocation().getBlock();
+		    switch(args[1])
+		    {
+		    	case "iron":
+		    	    Bukkit.broadcastMessage("IRON");
+		    	    b.setType(Material.IRON_ORE);
+			    DBUtil.addResourceNode(args[1], p.getLocation());
+		    	    break;
+		    	case "gold":
+		    	    b.setType(Material.GOLD_ORE);
+			    DBUtil.addResourceNode(args[1], p.getLocation());
+		    	    break;
+		    	case "hay":
+		    	    b.setType(Material.HAY_BLOCK);
+			    DBUtil.addResourceNode(args[1], p.getLocation());
+		    	    break;
+		    	case "sweetgum":
+		    	    b.setTypeIdAndData(175, (byte)4, true);
+			    DBUtil.addResourceNode(args[1], p.getLocation());
+		    	    break;
+		    	default:
+		    	    p.sendMessage(ChatColor.DARK_RED+"Invalid Node");
+		    	    break;
+		    }
+		}
+		catch (SQLException e){e.printStackTrace();}
+	    }
+	    if(args[1].equalsIgnoreCase("remove"))
+	    {
+		try{DBUtil.removeResourceNode(p.getTargetBlock(null, 5).getLocation());}
+		catch (SQLException e){e.printStackTrace();}
+	    }
 	}
 	return true;
 

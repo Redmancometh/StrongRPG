@@ -22,5 +22,8 @@ commands:
       usage: /horse
    lookup:
       description: badass horse
-      usage: /horse      
+      usage: /horse
+   resource:
+      description: badass horse
+      usage: /horse         
 depend: [Citizens]

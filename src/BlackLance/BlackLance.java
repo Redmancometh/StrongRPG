@@ -35,6 +35,7 @@ import Objectives.ObjectiveProcessor;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
 import Util.Mine;
+import Util.ResourceNodes;
 
 public class BlackLance extends JavaPlugin
 {
@@ -51,6 +52,8 @@ public class BlackLance extends JavaPlugin
 	c=MySQL.getConnection();
 	try{ RPGPlayer.createRPGPlayers();}
 	catch (SQLException e){e.printStackTrace();}
+	try{ResourceNodes.generateHay();ResourceNodes.generateSweetGum();}
+	catch(SQLException e){ e.printStackTrace();}
 	File configFile = new File(this.getDataFolder(), "config.yml");
 	PluginManager pm = getServer().getPluginManager();
 	pm.registerEvents(new CombatListeners(this), this);
@@ -69,6 +72,7 @@ public class BlackLance extends JavaPlugin
 	getCommand("blevel").setExecutor(new CommandParser());
 	getCommand("blreload").setExecutor(new CommandParser());
 	getCommand("lookup").setExecutor(new CommandParser());
+	getCommand("resource").setExecutor(new CommandParser());
 	net.citizensnpcs.api.CitizensAPI.getTraitFactory().registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(blm.class).withName("blm"));
 	HashMap<Location, Material> toRegen = Mine.getRegen();
 	Iterable<Location> locar = toRegen.keySet();
@@ -85,7 +89,6 @@ public class BlackLance extends JavaPlugin
     }
     public void onDisable()
     {
-	MySQL.closeConnection();
 	Bukkit.getScheduler().cancelAllTasks();
 	for(Player p : Bukkit.getOnlinePlayers())
 	{
@@ -93,6 +96,7 @@ public class BlackLance extends JavaPlugin
 	    try{DBUtil.saveDataByID(rp.getUID(), rp);}
 	    catch (SQLException e){e.printStackTrace(); }
 	}
+	MySQL.closeConnection();
     }
 
     public void saveIt()

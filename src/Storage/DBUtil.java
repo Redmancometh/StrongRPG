@@ -20,6 +20,8 @@ public class DBUtil
     {
 	Statement statement = c.createStatement();
 	statement.execute("CREATE TABLE Players(UUID varchar(50), uid INT primary key NOT NULL AUTO_INCREMENT, health INT, maxhealth INT, exp INT, x INT, y INT, z INT);");
+	statement.execute("CREATE TABLE Quests(questID int, uid int, progress int);");
+	statement.execute("CREATE TABLE Resources(type varchar(25), x DECIMAL, y DECIMAL, z DECIMAL, indexer INT primary key NOT NULL AUTO_INCREMENT);");
     }  
     public static void addPlayer(Player p) throws SQLException
     {
@@ -45,8 +47,6 @@ public class DBUtil
 	if(rs.next()){return true;}
 	else{return false;}
     }
-
- 
     public static int getUID(Player p) throws SQLException
     {
 	String uuid = p.getUniqueId().toString();
@@ -115,5 +115,52 @@ public class DBUtil
 	ps.setInt(6, z);
 	ps.setInt(7, rp.getUID());
 	ps.execute();
+    }
+    public static void addResourceNode(String type, Location loc) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("INSERT into Resources(type,x,y,z) VALUES(?,?,?,?)");
+	ps.setString(1, type);
+	ps.setDouble(2, loc.getX());
+	ps.setDouble(3, loc.getY());
+	ps.setDouble(4, loc.getZ());
+	ps.execute();
+    }
+    public static void removeResourceNode(Location loc) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("DELETE FROM Resources where x=?, y=?, z=?");
+	ps.setDouble(1, loc.getX());
+	ps.setDouble(2, loc.getY());
+	ps.setDouble(3, loc.getZ());
+	ps.execute();
+    }
+    public static ResultSet getIronNodes() throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
+	ps.setString(1, "iron");
+	return ps.executeQuery();
+    }
+    public static ResultSet getGoldNodes() throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM RESOURCES where type=?");
+	ps.setString(1, "gold");
+	return ps.executeQuery();
+    }
+    public static ResultSet getHayNodes() throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
+	ps.setString(1, "hay");
+	return ps.executeQuery();
+    }
+    public static ResultSet getSweetgumNodes() throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
+	ps.setString(1, "sweetgum");
+	return ps.executeQuery();
     }
 }

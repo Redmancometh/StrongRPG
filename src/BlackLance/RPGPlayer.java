@@ -60,7 +60,7 @@ public class RPGPlayer
 	this.xp = d;
     }
 
-    public void setMaxHealth(final Player p)
+    public void setMaxHealth(final Player p, final boolean levelup)
     {
 	BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 	scheduler.scheduleSyncDelayedTask(BlackLance.pl, new Runnable()
@@ -68,7 +68,7 @@ public class RPGPlayer
 	    public void run()
 	    {
 		maxhealth = ((p.getLevel() * 10) + 30);
-		health = maxhealth;
+		if(levelup){health = maxhealth;}
 	    }
 	});
     }
@@ -77,12 +77,10 @@ public class RPGPlayer
     {
 	if (health + d < maxhealth)
 	{
-	    Bukkit.broadcastMessage("D "+d);
 	    health += d;
 	}
 	else
 	{
-	    Bukkit.broadcastMessage("else D "+d+" wut "+(health+d)+" Health "+health+" d"+d);
 	    health = maxhealth;
 	}
     }
@@ -147,7 +145,6 @@ public class RPGPlayer
 		ResultSet rs = DBUtil.getPlayerData(p);
 		RPGPlayer rp = RPGPlayer.createRPGPLayer(rs, p);
 		RPGPlayers.addRPGPlayer(p, rp);
-		Bukkit.broadcastMessage("scheduling");
 		scheduleHeals(rp,p);
 	    }
 	    else
@@ -155,7 +152,6 @@ public class RPGPlayer
 		DBUtil.addPlayer(p);
 		RPGPlayer rp = new RPGPlayer(p, DBUtil.getUID(p), 0, 30, 30);
 		RPGPlayers.addRPGPlayer(p, rp);
-		Bukkit.broadcastMessage("scheduling2");
 		scheduleHeals(rp,p);
 	    }
 
@@ -170,14 +166,12 @@ public class RPGPlayer
 		    if (!p.isDead())
 		    {
 			rp.healPlayer(((p.getLevel()) + 2), p);
-			Bukkit.broadcastMessage("Heal "+p.getLevel()+2);
 			p.setHealth((double)rp.getHealth() / (double)rp.getMaxHealth() * 20);
 			String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + rp.getHealth() + "/" + rp.getMaxHealth();
 			float health = ((float)rp.getHealth()/(float)rp.getMaxHealth());
-			rp.setMaxHealth(p);
 			BarAPI.setMessage(p, healthdisplay, health*100);
 		    }
 		}
-	}.runTaskTimer(BlackLance.pl, 10, 185);
+	}.runTaskTimer(BlackLance.pl, 10, 85);
     }
 }

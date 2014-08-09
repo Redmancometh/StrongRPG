@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import BlackLance.BlackLance;
@@ -21,55 +22,87 @@ import Storage.RPGPlayers;
 
 import com.comphenix.example.EntityHider;
 import com.comphenix.example.EntityHider.Policy;
+import com.gmail.filoghost.holograms.api.Hologram;
+import com.gmail.filoghost.holograms.api.HolographicDisplaysAPI;
 
-public class Harvest 
+public class Harvest
 {
-	List<String> lore = new ArrayList<String>();
-	ItemMeta harvestmeta;
-	String harvestname = "";
-	static HashMap<Location, Material> regen = new HashMap();
-	Block b;
-	
-	public Harvest(Block b, Player p, BlackLance blacklance)
-	{
-		this.b=b;
-		harvestProcessor(b,p,blacklance);
-	}
-	public void harvestProcessor(Block b, Player p, BlackLance blacklance)
-	{
-		if(b.getType()==Material.HAY_BLOCK){harvestHay(b,p,blacklance);}
-	}
-	public void harvestHay(final Block b, Player p, BlackLance blacklance)
-	{
-		DropUtil du = new DropUtil(blacklance);
-		ItemStack harvested = new ItemStack(Material.HAY_BLOCK);
-		harvestmeta = harvested.getItemMeta();
-		harvestmeta.setDisplayName("Hay");
-		lore.add("Good horse food");
-		lore.add(ChatColor.BLUE+"Sell Value: 1");
-		lore.add("PlayerI"+p.getUniqueId());
-		harvestmeta.setLore(lore);
-		harvested.setItemMeta(harvestmeta);
-		b.setType(Material.AIR);
-		CraftItem ci = (CraftItem)p.getWorld().dropItem(b.getLocation(), harvested);
-		du.hide(p, ci);
-		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-		RPGPlayers.addXP(p, 5);
-		final Block b2=b;
-        scheduler.scheduleSyncDelayedTask(blacklance, new Runnable() 
-        {
-            public void run() 
-            {
-        		if(!regen.containsKey(b.getLocation())){regen.put(b.getLocation(), b.getType());}
-            	b2.setType(Material.HAY_BLOCK);
-            }
-        }, 600L);
+    List<String> lore = new ArrayList<String>();
+    ItemMeta harvestmeta;
+    String harvestname = "";
+    static HashMap<Location, Material> regen = new HashMap();
+    Block b;
 
-	}
-	public static HashMap<Location, Material> getRegen()
+    public Harvest(Block b, Player p, BlackLance blacklance)
     {
-		return regen;
-    	
+	this.b = b;
+	harvestProcessor(b, p, blacklance);
+    }
+
+    public void harvestProcessor(Block b, Player p, BlackLance blacklance)
+    {
+	if (b.getType() == Material.HAY_BLOCK)
+	{
+	    harvestHay(b, p, blacklance);
+	}
+    }
+
+    public void harvestHay(final Block b, final Player p, final BlackLance blacklance)
+    {
+	new BukkitRunnable()
+	{
+	    int x = 0;
+	    Location loc1 = b.getLocation().add(new Location(p.getWorld(),.5,1.6,0));
+	    Hologram hologram = HolographicDisplaysAPI.createIndividualHologram(blacklance, loc1, p, "\u25A0");
+	    String loadingbar = "\u25A0";
+	    public void run()
+	    {
+		loadingbar=loadingbar+loadingbar;
+		hologram.setLine(0, ChatColor.YELLOW+loadingbar);
+		hologram.update();
+		x++;
+		if (x == 5)
+		{
+		    DropUtil du = new DropUtil(blacklance);
+		    ItemStack harvested = new ItemStack(Material.HAY_BLOCK);
+		    harvestmeta = harvested.getItemMeta();
+		    harvestmeta.setDisplayName("Hay");
+		    lore.add("Good horse food");
+		    Bukkit.broadcastMessage("MUFUCKA");
+		    lore.add(ChatColor.BLUE + "Sell Value: 1");
+		    lore.add("PlayerI" + p.getUniqueId());
+		    harvestmeta.setLore(lore);
+		    harvested.setItemMeta(harvestmeta);
+		    b.setType(Material.AIR);
+		    CraftItem ci = (CraftItem) p.getWorld().dropItem(b.getLocation(), harvested);
+		    du.hide(p, ci);
+		    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+		    RPGPlayers.addXP(p, 5);
+		    hologram.delete();
+		    this.cancel();
+
+		}
+	    }
+	}.runTaskTimer(blacklance, 10, 10);
+
+	new BukkitRunnable()
+	{
+	    public void run()
+	    {
+		if (!regen.containsKey(b.getLocation()))
+		{
+		    regen.put(b.getLocation(), b.getType());
+		}
+		b.setType(Material.HAY_BLOCK);
+	    }
+	}.runTaskLater(blacklance, 600);
+
+    }
+
+    public static HashMap<Location, Material> getRegen()
+    {
+	return regen;
+
     }
 
 }

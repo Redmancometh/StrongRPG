@@ -87,7 +87,7 @@ public class PlayerListeners implements Listener
 		rp = new RPGPlayer(p, DBUtil.getUID(p), 0, 30, 30);
 		RPGPlayers.addRPGPlayer(p, rp);
 	    }
-	    rp.setMaxHealth(p);
+	    rp.setMaxHealth(p,false);
 	    healTask = new BukkitRunnable()
 	    {
 		public void run()
@@ -98,11 +98,11 @@ public class PlayerListeners implements Listener
 			p.setHealth((double)rp.getHealth() / (double)rp.getMaxHealth() * 20);
 			String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + rp.getHealth() + "/" + rp.getMaxHealth();
 			float health = ((float)rp.getHealth()/(float)rp.getMaxHealth());
-			rp.setMaxHealth(p);
+			rp.setMaxHealth(p,false);
 			BarAPI.setMessage(p, healthdisplay, health*100);
 		    }
 		}
-	    }.runTaskTimer(pl, 10, 185);
+	    }.runTaskTimer(pl, 10, 65);
 	}
 	if (event.getPlayer() != null)
 	{
@@ -140,7 +140,7 @@ public class PlayerListeners implements Listener
 	final User u = ess.getUser(event.getPlayer());
 	final Player p = event.getPlayer();
 	RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
-	rp.setMaxHealth(p);
+	rp.setMaxHealth(p,true);
 	if (u.getHome("home") != null)
 	{
 	    Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable()
