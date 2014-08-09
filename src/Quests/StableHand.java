@@ -44,9 +44,9 @@ public class StableHand
 			if(!dg.checkInProgress(5,p)&&(!dg.checkCompleted(5,p)))
 			{
 						ds.addQIP(5,p);
-						p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+p.getName()+"I need to feed these 2 horses, but it is too dangerous to go out and get hay..if I give you a hoe can you do it?");
+						p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+p.getName()+" I need to feed these 2 horses, but it is too dangerous to go out and get hay... If I give you a hoe can you do it?");
 						p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+"There is hay ahead on path, across from the witches hut, but there are bandits.");
-						p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+"Take this hoe to harvest the hay with..about 8 bales should do, good luck "+p.getName());
+						p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+"Take this hoe to harvest the hay with... about 8 bales should do, good luck "+p.getName());
 						p.getInventory().addItem(new ItemStack(Material.STONE_HOE));
 			}
 			else
@@ -54,7 +54,7 @@ public class StableHand
 				if(dg.checkInProgress(5,p)&&!dg.checkCompleted(5,p))
 				{
 					p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+"The horses are still hungry adventurer.");
-					p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+"If you need another hoe speak to farmer Paul outside of town");
+					p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+"If you need another hoe, speak to Farmer Giles. His house is nearby.");
 				}
 				if(dg.checkCompleted(5,p)){p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand: "+ChatColor.GREEN+" The horses are well fed now, thanks! Talk to farmer Ashton if you need another hoe.");}
 			}
@@ -68,7 +68,7 @@ public class StableHand
 					{
 						if(amount>8){p.getItemInHand().setAmount(amount-8);ds.completeQuest(5,p);}
 						if(amount==8){p.getItemInHand().setType(Material.AIR);ds.completeQuest(5,p);}
-						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" Thank you for your help "+p.getName()+" we cannot thank you enough!"); 
+						p.sendMessage(ChatColor.DARK_GREEN+"Stable Hand:"+ChatColor.GREEN+" Thank you for your help "+p.getName()+"! I'll feed the horses now!"); 
 						p.sendMessage(ChatColor.GOLD+"The farm hand has given you some experience potions!");
 						for(int x = 0; x<5; x++){p.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE));}
 						p.updateInventory();

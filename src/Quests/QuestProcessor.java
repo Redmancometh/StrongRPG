@@ -62,4 +62,36 @@ public class QuestProcessor
 			p.sendMessage(ChatColor.DARK_GREEN+"Blacksmith: "+ChatColor.GREEN+"Bring me 45 Iron Ore if you want a weapon made!");
 		}
 	}
+	
+	public void blacksmithRiverwood()
+	{
+		if(p.getItemInHand().getType()==Material.GOLD_ORE)
+		{
+			int amount = p.getItemInHand().getAmount();
+			if(amount<64)
+			{
+				p.sendMessage(ChatColor.DARK_GREEN+"Blacksmith: "+ChatColor.DARK_RED+"Sorry this isn't enough gold. I need 64 gold ore for a weapon!");
+			}
+			else
+			{
+				if(amount!=64){p.getItemInHand().setAmount(amount-64);}
+				else{p.getInventory().remove(event.getClicker().getItemInHand());}
+				p.sendMessage(ChatColor.DARK_GREEN+"Blacksmith: "+ChatColor.GREEN+" Here is your new gold sword!");
+				p.sendMessage(ChatColor.GOLD+" You have received a Powerful Gold Sword!");
+				swordlore.add("Damage: 20-22");
+				swordlore.add(ChatColor.BLUE+"Sell Value: 50");
+				swordmeta.setDisplayName("Powerful Gold Sword ");
+				swordmeta.setLore(swordlore);
+				swordlore.clear();
+				noobsword.setItemMeta(swordmeta);
+				noobsword.setType(Material.GOLD_SWORD);
+				p.getInventory().addItem(noobsword);
+			}
+		}
+		else
+		{
+			p.sendMessage(ChatColor.DARK_GREEN+"Blacksmith: "+ChatColor.GREEN+"Bring me 64 Gold Ore if you want a weapon made!");
+		}
+	}
+	
 }

@@ -1,6 +1,7 @@
 package Util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,9 +31,7 @@ public class Harvest
     List<String> lore = new ArrayList<String>();
     ItemMeta harvestmeta;
     String harvestname = "";
-    static HashMap<Location, Material> regen = new HashMap();
     Block b;
-
     public Harvest(Block b, Player p, BlackLance blacklance)
     {
 	this.b = b;
@@ -68,7 +67,6 @@ public class Harvest
 		    harvestmeta = harvested.getItemMeta();
 		    harvestmeta.setDisplayName("Hay");
 		    lore.add("Good horse food");
-		    Bukkit.broadcastMessage("MUFUCKA");
 		    lore.add(ChatColor.BLUE + "Sell Value: 1");
 		    lore.add("PlayerI" + p.getUniqueId());
 		    harvestmeta.setLore(lore);
@@ -80,20 +78,21 @@ public class Harvest
 		    RPGPlayers.addXP(p, 5);
 		    hologram.delete();
 		    this.cancel();
-
 		}
 	    }
 	}.runTaskTimer(blacklance, 10, 10);
-
 	new BukkitRunnable()
 	{
 	    public void run()
 	    {
-		if (!regen.containsKey(b.getLocation()))
+		Collections.shuffle(ResourceNodes.hayLocations);
+		boolean set = false;
+		while(!set)
 		{
-		    regen.put(b.getLocation(), b.getType());
+		    Block b = ResourceNodes.hayLocations.get(0).getBlock();
+		    if(b.getType()!=Material.HAY_BLOCK){b.setType(Material.HAY_BLOCK);set=true;}
+		    else{Collections.shuffle(ResourceNodes.hayLocations);}
 		}
-		b.setType(Material.HAY_BLOCK);
 	    }
 	}.runTaskLater(blacklance, 600);
 

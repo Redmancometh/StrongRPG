@@ -44,8 +44,8 @@ public class DemonStart
 			if(!dg.checkInProgress(4,p)&&(!dg.checkCompleted(4,p)))
 			{
 						ds.addQIP(4,p);
-						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" Greetings "+p.getName()+" may I ask you for your help?");
-						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+p.getName()+", we are under siege by the demon Uxaerodun, and his servants are at our very gates!");
+						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" Greetings "+p.getName()+"! May I ask you for your help?");
+						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" We are under siege by the demon Uxaerodun, and his servants are at our very gates!");
 						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" Please kill 15 of them and bring their eyes back so that we may make a weapon to destroy them! You will be greatly rewarded!");
 			}
 			else
@@ -74,7 +74,7 @@ public class DemonStart
 						Avenger.setItemMeta(Ameta);
 						if(amount>15){p.getItemInHand().setAmount(amount-15);ds.completeQuest(4,p);}
 						if(amount==15){p.getItemInHand().setType(Material.AIR);ds.completeQuest(4,p);}
-						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" Thank you for your help "+p.getName()+" we cannot thank you enough!"); 
+						p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" Thank you for your help "+p.getName()+"! We cannot thank you enough!"); 
 						p.sendMessage(ChatColor.GOLD+"The mayor has given you a highly enchanted sword and some experience potions!");
 						for(int x = 0; x<5; x++)
 						{
@@ -83,7 +83,7 @@ public class DemonStart
 						p.getInventory().addItem(Avenger);
 						p.updateInventory();
 					}
-						else{p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+" I want 15 of their eyes!");}
+						else{p.sendMessage(ChatColor.DARK_GREEN+"Mayor:"+ChatColor.GREEN+" I need 15 of their eyes!");}
 			}
 			else
 			{

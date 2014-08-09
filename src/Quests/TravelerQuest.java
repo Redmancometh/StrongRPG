@@ -42,14 +42,14 @@ public class TravelerQuest{
 					if(amount!=15){p.getItemInHand().setAmount(amount-15);}
 					else{p.getInventory().remove(event.getClicker().getItemInHand());}
 					//These are the messages it sends if the player has enough of the item, and the quest is being completed
-					p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.DARK_GREEN+" Thank you so much "+p.getName()+" this should keep me warm!");
-					p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.DARK_GREEN+" Here, have some experience potions.");
+					p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.GREEN+" Thank you so much "+p.getName()+" this should keep me warm!");
+					p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.GREEN+" Here, have some experience potions.");
 					p.sendMessage(ChatColor.GOLD+"You have received some experience potions!");
 					//This loop gives the player 10 of each of these items. I can set this up for you
 					for(int x = 0; x<15; x++){
 						p.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE));
-						//p.getInventory().addItem(new ItemStack(Material.IRON_ORE));
 					}
+					p.updateInventory();
 				}
 			}
 			//Not Shrimp Meat
@@ -61,7 +61,7 @@ public class TravelerQuest{
 					p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.GREEN+"I'm very cold, could you bring me 15 Wolf Pelt from these Dire Wolves? I'm too cold to move right now.");
 				}
 				//In progress, but not completed message; again, change the 1 to your quest ID
-				if(dg.checkInProgress(10,p)&&!dg.checkCompleted(10,p)){p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.GREEN+"Please hurry! I don't want to freeze!");}
+				//if(dg.checkInProgress(10,p)&&!dg.checkCompleted(10,p)){p.sendMessage(ChatColor.DARK_GREEN+"Traveler: "+ChatColor.GREEN+"Please hurry! I don't want to freeze!");}
 				else
 				{
 					//Message for after the Quest is Completed, change the 1 to whatever your Quest ID is

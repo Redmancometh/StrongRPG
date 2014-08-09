@@ -81,10 +81,129 @@ public class QuestChecks
 		{	
 			drop.setType(Material.EYE_OF_ENDER);
 			dropmeta.setDisplayName("Dark Servant's Eye ");
-			lore.add("Sends a Brutal Message..");
+			lore.add("Sends a Brutal Message...");
 			lore.add(ChatColor.BLUE+"Sell Value: 3");
 			dodrop=true;
-		}	
+		}
+		
+		//============================================================================================================
+		if(mobname.contains("Charger"))
+		{	
+			drop.setType(Material.PORK);
+			dropmeta.setDisplayName("Horse Meat");
+			lore.add("Looks tasty...");
+			lore.add(ChatColor.BLUE+"Sell Value: 10");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Crawler"))
+		{	
+			drop.setType(Material.STRING);
+			dropmeta.setDisplayName("String");
+			lore.add("Good for making bows");
+			lore.add(ChatColor.BLUE+"Sell Value: 3");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Chicken"))
+		{	
+			drop.setType(Material.EGG);
+			dropmeta.setDisplayName("Chicken Egg");
+			lore.add("You can cook these");
+			lore.add(ChatColor.BLUE+"Sell Value: 1");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Hunter"))
+		{	
+			drop.setType(Material.INK_SACK);
+			dropmeta.setDisplayName("Black Ink");
+			lore.add("Good for writting books");
+			lore.add(ChatColor.BLUE+"Sell Value: 4");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Crawler"))
+		{	
+			drop.setType(Material.STRING);
+			dropmeta.setDisplayName("Strings");
+			lore.add("Good for making bows");
+			lore.add(ChatColor.BLUE+"Sell Value: 3");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Red Cow"))
+		{	
+			drop.setType(Material.RED_MUSHROOM);
+			dropmeta.setDisplayName("Red Mushroom");
+			lore.add("Looks delicious.");
+			lore.add(ChatColor.BLUE+"Sell Value: 2");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Dark Archer"))
+		{	
+			drop.setType(Material.BONE);
+			dropmeta.setDisplayName("Dark Bone");
+			lore.add("Slimy...");
+			lore.add(ChatColor.BLUE+"Sell Value: 1");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("[19] Cow"))
+		{	
+			drop.setType(Material.LEATHER);
+			dropmeta.setDisplayName("Leather");
+			lore.add("Good for making armour.");
+			lore.add(ChatColor.BLUE+"Sell Value: 13");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Red Cow"))
+		{	
+			drop.setType(Material.RED_MUSHROOM);
+			dropmeta.setDisplayName("Red Mushroom");
+			lore.add("Looks delicious.");
+			lore.add(ChatColor.BLUE+"Sell Value: 2");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Slime"))
+		{	
+			drop.setType(Material.SLIME_BALL);
+			dropmeta.setDisplayName("Slime ball");
+			lore.add("Sticky...");
+			lore.add(ChatColor.BLUE+"Sell Value: 1");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Dire"))
+		{	
+			drop.setType(Material.LEATHER);
+			dropmeta.setDisplayName("Wolf Pelt");
+			lore.add("Looks delicious.");
+			lore.add(ChatColor.BLUE+"Sell Value: 2");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Red Cow"))
+		{	
+			drop.setType(Material.RED_MUSHROOM);
+			dropmeta.setDisplayName("Red Mushroom");
+			lore.add("Looks delicious.");
+			lore.add(ChatColor.BLUE+"Sell Value: 2");
+			dodrop=true;
+		}
+		
+		if(mobname.contains("Magma"))
+		{	
+			drop.setType(Material.MAGMA_CREAM);
+			dropmeta.setDisplayName("Magma ball");
+			lore.add("Seems to have magical properties in it...");
+			lore.add(ChatColor.BLUE+"Sell Value: 11");
+			dodrop=true;
+		}
+		//============================================================================================================
 		if(dodrop&&isdropped<=.48)
 		{
 			lore.add("PlayerI"+killer.getUniqueId());
