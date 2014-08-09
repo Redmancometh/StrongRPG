@@ -17,7 +17,7 @@ public class ResourceNodes
 {
     public static void generateHay() throws SQLException
     {
-	ResultSet rs = DBUtil.getHayNodes();
+	ResultSet rs = DBUtil.getResourceNodes("hay");
 	List<Location> locations = new ArrayList<Location>();
 	while(rs.next())
 	{
@@ -30,7 +30,7 @@ public class ResourceNodes
     }
     public static void generateSweetGum() throws SQLException
     {
-	ResultSet rs = DBUtil.getSweetgumNodes();
+	ResultSet rs = DBUtil.getResourceNodes("sweetgum");
 	List<Location> locations = new ArrayList<Location>();
 	while(rs.next())
 	{

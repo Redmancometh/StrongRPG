@@ -20,9 +20,35 @@ public class DBUtil
     {
 	Statement statement = c.createStatement();
 	statement.execute("CREATE TABLE Players(UUID varchar(50), uid INT primary key NOT NULL AUTO_INCREMENT, health INT, maxhealth INT, exp INT, x INT, y INT, z INT);");
-	statement.execute("CREATE TABLE Quests(questID int, uid int, progress int);");
+	statement.execute("CREATE TABLE Quests(questID int, uid int, progress int, completed int);");
 	statement.execute("CREATE TABLE Resources(type varchar(25), x DECIMAL, y DECIMAL, z DECIMAL, indexer INT primary key NOT NULL AUTO_INCREMENT);");
-    }  
+    }
+    public static ResultSet getProgress(int uid, int questID) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT progress, completed FROM Quests where uid=?");
+	ps.setInt(1, uid);
+	ResultSet rs = ps.executeQuery();
+	return rs;
+    }
+    public static void setProgress(int uid, int questID, int progress) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("UPDATE Quests SET progress=? WHERE uid=? AND questid=?");
+	ps.setInt(1, progress);
+	ps.setInt(2, uid);
+	ps.setInt(3, questID);
+	ps.execute();
+    }
+    public static void setComplete(int uid, int questID, int complete) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("UPDATE Quests SET completed=? WHERE uid=? AND questid=?");
+	ps.setInt(1, complete);
+	ps.setInt(2, uid);
+	ps.setInt(3, questID);
+	ps.execute();
+    }
     public static void addPlayer(Player p) throws SQLException
     {
 	String uuid = p.getUniqueId().toString();
@@ -135,32 +161,11 @@ public class DBUtil
 	ps.setDouble(3, loc.getZ());
 	ps.execute();
     }
-    public static ResultSet getIronNodes() throws SQLException
+    public static ResultSet getResourceNodes(String type) throws SQLException
     {
 	PreparedStatement ps = null;
 	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
-	ps.setString(1, "iron");
-	return ps.executeQuery();
-    }
-    public static ResultSet getGoldNodes() throws SQLException
-    {
-	PreparedStatement ps = null;
-	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM RESOURCES where type=?");
-	ps.setString(1, "gold");
-	return ps.executeQuery();
-    }
-    public static ResultSet getHayNodes() throws SQLException
-    {
-	PreparedStatement ps = null;
-	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
-	ps.setString(1, "hay");
-	return ps.executeQuery();
-    }
-    public static ResultSet getSweetgumNodes() throws SQLException
-    {
-	PreparedStatement ps = null;
-	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
-	ps.setString(1, "sweetgum");
+	ps.setString(1, type);
 	return ps.executeQuery();
     }
 }
