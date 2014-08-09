@@ -97,11 +97,4 @@ public class Harvest
 	}.runTaskLater(blacklance, 600);
 
     }
-
-    public static HashMap<Location, Material> getRegen()
-    {
-	return regen;
-
-    }
-
 }
