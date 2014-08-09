@@ -43,7 +43,7 @@ public class WitchQuest
 			if(!dg.checkInProgress(3,p)&&(!dg.checkCompleted(3,p)))
 			{
 					ds.addQIP(3,p);
-					p.sendMessage(ChatColor.DARK_GREEN+"Witch:"+ChatColor.GREEN+" Greetings "+p.getName()+" Bring me 15 spider eyes and I'll make you some healing potions and experience potions!");
+					p.sendMessage(ChatColor.DARK_GREEN+"Witch:"+ChatColor.GREEN+" Greetings "+p.getName()+". Bring me 15 spider eyes and I'll make you some healing potions and experience potions!");
 			}
 			else
 			{
@@ -51,7 +51,7 @@ public class WitchQuest
 				{
 					p.sendMessage(ChatColor.DARK_GREEN+"Witch: "+ChatColor.GREEN+"I grow impatient! Where are my spider eyes?");
 				}
-				if(dg.checkCompleted(3,p)){p.sendMessage(ChatColor.DARK_GREEN+"Witch:"+ChatColor.GREEN+" I may have more work for me later...");}
+				if(dg.checkCompleted(3,p)){p.sendMessage(ChatColor.DARK_GREEN+"Witch:"+ChatColor.GREEN+" I may have more work for you later...");}
 			}
 		}
 		else
@@ -79,7 +79,7 @@ public class WitchQuest
 								p.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE));
 							}
 					}
-					else{p.sendMessage(ChatColor.DARK_GREEN+"Witch:"+" I told you I need 15! Get out of my sight until you get 15!");}
+					else{p.sendMessage(ChatColor.DARK_GREEN+"Witch:"+ChatColor.GREEN+" I told you I need 15! Get out of my sight until you get 15!");}
 			}
 			else
 			{

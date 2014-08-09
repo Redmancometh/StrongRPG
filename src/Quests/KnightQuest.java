@@ -46,8 +46,8 @@ public class KnightQuest
 					if(amount!=10){p.getItemInHand().setAmount(amount-10);}
 					else{p.getInventory().remove(event.getClicker().getItemInHand());}
 					//These are the messages it sends if the player has enough of the item, and the quest is being completed
-					p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.DARK_GREEN+" Thank you so much "+p.getName()+" this should help.");
-					p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.DARK_GREEN+" Here is some spare iron, and some experience potions.");
+					p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+" Thank you so much "+p.getName()+" this should help.");
+					p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+" Here is some spare iron, and some experience potions.");
 					p.sendMessage(ChatColor.GOLD+"You have received 10 iron ore and some experience potions!");
 					//This loop gives the player 10 of each of these items. I can set this up for you
 					for(int x = 0; x<10; x++)
@@ -67,7 +67,7 @@ public class KnightQuest
 					p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+"I'm very hungry, could you bring me 10 shrimp meat from these evil shrimp? I'm too weak to fight right now.");
 				}
 				//In progress, but not completed message; again, change the 1 to your quest ID
-				if(dg.checkInProgress(1,p)&&!dg.checkCompleted(1,p)){p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+"Please hury!");}
+				if(dg.checkInProgress(1,p)&&!dg.checkCompleted(1,p)){p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+"Please hurry!");}
 				else
 				{
 					//Message for after the Quest is Completed, change the 1 to whatever your Quest ID is
@@ -89,7 +89,7 @@ public class KnightQuest
 			else
 			{
 				//The quest is in progress, but is not completed message. Replace the 1 with your quest ID 
-				if(dg.checkInProgress(1,p)&&!dg.checkCompleted(1,p)){p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+"Please hury!");}
+				if(dg.checkInProgress(1,p)&&!dg.checkCompleted(1,p)){p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+"Please hurry!");}
 				//The quest is completed message, change 1 to your quest ID
 				else{if(dg.checkCompleted(1,p)){p.sendMessage(ChatColor.DARK_GREEN+"Knight: "+ChatColor.GREEN+"Talk to the mayor of the town on the other side of this tunnel for another quest! They urgently require aid adventurer!");}}
 			}

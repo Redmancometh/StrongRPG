@@ -140,7 +140,6 @@ public class DropUtil implements Listener
 				if(type>.25&&type<=.50){drop.setType(Material.WOOD_AXE);suffix="Wooden Axe";}
 				if(type>.50&&type<=.75){drop.setType(Material.SHEARS);suffix="Claws";}
 				if(type>.75&&type<=1){drop.setType(Material.IRON_HOE);suffix="Scythe";}
-
 				if(hdmg<=level){prefix=ChatColor.GRAY+"Drunk-Made ";}
 				if(hdmg>=level+1){prefix=ChatColor.GRAY+"Crappy ";}
 				if(hdmg>=level+2){prefix=ChatColor.GRAY+"Low-Quality ";}

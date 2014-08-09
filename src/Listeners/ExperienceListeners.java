@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
 
+import BlackLance.RPGPlayer;
 import Storage.RPGPlayers;
 import Util.CombatUtil;
 
@@ -35,11 +36,13 @@ public class ExperienceListeners  implements Listener
 			p.sendMessage(ChatColor.GOLD+"You have gained a level! Gratz on getting level "+(p.getLevel()+1)+"!");
 			if(p.getLevel()>21)
 			{
-				p.sendMessage("You have gained some maximum health!");
+			    RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
+			    
+			    p.sendMessage("You have gained some maximum health!");
 			}
 			else
 			{
-				p.sendMessage(ChatColor.GREEN+"You will start gaining max health in "+(21-p.getLevel())+" levels!");
+			    p.sendMessage(ChatColor.GREEN+"You will start gaining max health in "+(21-p.getLevel())+" levels!");
 			}
 		}
 		

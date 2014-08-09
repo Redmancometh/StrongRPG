@@ -5,12 +5,6 @@ commands:
    setup:
       description: Join the game.
       usage: /join
-   createwarpvendor:
-      description: Create a warp vendor
-      usage: /createwarpvendor [name]
-   wm:
-      description: Warp Menu
-      usage: Just use /homes, no arguments.
    blreload:
       description: Reload
       usage: /breload
@@ -20,4 +14,16 @@ commands:
    bs:
       description: Reload
       usage: /breload
+   getLoc:
+      description: get Location
+      usage: /getLoc
+   horse:
+      description: badass horse
+      usage: /horse
+   lookup:
+      description: badass horse
+      usage: /horse
+   resource:
+      description: badass horse
+      usage: /horse         
 depend: [Citizens]
