@@ -62,7 +62,7 @@ public class ItemListeners implements Listener
 			}
 		}
 	}
-	/*@EventHandler
+	@EventHandler
 	public void wandEvent(PlayerInteractEvent event)
 	{
 		if(event.hasItem())
@@ -73,7 +73,7 @@ public class ItemListeners implements Listener
 			}
 			else{return;}
 		}
-	}*/
+	}
 	@EventHandler
 	public void callHorse(PlayerInteractEvent event)
 	{

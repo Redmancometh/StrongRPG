@@ -3,25 +3,12 @@ package BlackLance;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import Listeners.*;
-import net.citizensnpcs.Citizens;
-import net.citizensnpcs.api.npc.NPC;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,14 +16,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import code.husky.mysql.MySQL;
-
-
 import Objectives.ObjectiveProcessor;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
 import Util.Mine;
 import Util.ResourceNodes;
-
 public class BlackLance extends JavaPlugin
 {
     BukkitTask connect;
@@ -99,7 +83,6 @@ public class BlackLance extends JavaPlugin
 	}
 	MySQL.closeConnection();
     }
-
     public void saveIt()
     {
 	this.saveConfig();

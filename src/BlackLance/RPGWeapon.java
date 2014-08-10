@@ -81,7 +81,7 @@ public class RPGWeapon
         return hidden;
     }
     public static int[] getDamages(ItemStack weapon)
-	{
+    {
 	    int damages[] = new int[2];
 	    String damage = weapon.getItemMeta().getLore().toString();
 	    if(damage.charAt(10)=='-'){damages[0] = Integer.parseInt(damage.substring(9,10));}
@@ -102,6 +102,6 @@ public class RPGWeapon
 		else{damages[1]=Integer.parseInt(hcheck[1].substring(0,3));}
 	    }
 	    return damages;
-	}
+    }
     public static int getWeaponID(ItemStack i){return Integer.parseInt(i.getItemMeta().getLore().get(2).replaceAll("§", ""));}
 }

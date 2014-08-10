@@ -50,6 +50,19 @@ public class DBUtil
 	ps.setInt(3, questID);
 	ps.execute();
     }
+    public static int getComplete(int uid, int questID) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT completed FROM Quests WHERE uid=? AND questid=?");
+	ps.setInt(1, uid);
+	ps.setInt(2, questID);
+	ResultSet rs = ps.executeQuery();
+	while(rs.next())
+	{
+	  return rs.getInt(1);
+	}
+	return 3;
+    }
     public static void addPlayer(Player p) throws SQLException
     {
 	String uuid = p.getUniqueId().toString();

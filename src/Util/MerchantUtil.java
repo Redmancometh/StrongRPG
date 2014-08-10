@@ -1,6 +1,7 @@
 package Util;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,6 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import BlackLance.RPGPlayer;
+import BlackLance.RPGWeapon;
+import Storage.RPGPlayers;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
@@ -34,7 +40,7 @@ public class MerchantUtil implements Listener
 		this.clicked=clicked;
 		this.clicker=clicker;
 	}
-	public void Buy(ItemStack clicked, Player clicker) throws NoLoanPermittedException, UserDoesNotExistException
+	public void Buy(ItemStack clicked, final Player clicker) throws NoLoanPermittedException, UserDoesNotExistException
 	{
 			if(clicked.getItemMeta().hasLore())
 			{
@@ -52,6 +58,21 @@ public class MerchantUtil implements Listener
 					ItemStack newclicked = clicked.clone();
 					newclicked.setItemMeta(meta);
 					clicker.getInventory().addItem(newclicked);
+					new BukkitRunnable()
+					{
+					    public void run()
+					    {
+						RPGPlayer rp = RPGPlayers.getRPGPlayer(clicker);
+						try
+						{
+						    RPGWeapon.makeWeapons(rp);
+						}
+						catch (SQLException e)
+						{
+						    e.printStackTrace();
+						}
+					    }
+					}.runTaskLater(BlackLance.BlackLance.getPlugin(), 5);
 					if(newclicked.getType()!=Material.ARROW)clicker.sendMessage(ChatColor.GOLD+"You bought "+newclicked.getItemMeta().getDisplayName()+ChatColor.GOLD+"for "+buyprice+" coins!");
 				}
 			}

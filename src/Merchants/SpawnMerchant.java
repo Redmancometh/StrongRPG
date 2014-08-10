@@ -27,6 +27,7 @@ public class SpawnMerchant
 	List<String> lore5 = new ArrayList<String>();
 	List<String> lore6 = new ArrayList<String>();
 	List<String> lore7 = new ArrayList<String>();
+	List<String> lore8 = new ArrayList<String>();
 
 	private NPCRightClickEvent event;
 	public SpawnMerchant(NPCRightClickEvent event)
@@ -49,6 +50,7 @@ public class SpawnMerchant
 		names[5]="Basic Leather Boots - 20 Steel Coins";
 		names[6]="Cracked Leather Body Armor - 30 Steel Coins";
 		names[7]="Wand - 30 Steel Coins";
+		names[8]="Baller Wand - 30 Steel Coins";
 
 		options[0] = new ItemStack(Material.POTION);
 		options[1] = new ItemStack(Material.IRON_SWORD);
@@ -58,6 +60,7 @@ public class SpawnMerchant
 		options[5] = new ItemStack(Material.LEATHER_BOOTS);
 		options[6] = new ItemStack(Material.LEATHER_CHESTPLATE);
 		options[7] = new ItemStack(Material.STICK);
+		options[8] = new ItemStack(Material.STICK);
 
 		lore0.add("Heals Minor Damage");
 		lore0.add(ChatColor.BLUE+"Sell Value: 3");
@@ -82,10 +85,13 @@ public class SpawnMerchant
 		
 		lore7.add("Damage: 5-6");
 		lore7.add(ChatColor.BLUE+"Sell Value: 8");
+		
+		lore8.add("Damage: 55-65");
+		lore8.add(ChatColor.BLUE+"Sell Value: 8");
 	}
 	public void applyData()
 	{
-		for(int x = 0; x<=7; x++)
+		for(int x = 0; x<=8; x++)
 		{
 			meta[x]=options[x].getItemMeta();
 		}
@@ -97,8 +103,9 @@ public class SpawnMerchant
 		meta[5].setLore(lore5);
 		meta[6].setLore(lore6);
 		meta[7].setLore(lore7);
+		meta[8].setLore(lore8);
 
-		for(int x = 0; x<=7; x++)
+		for(int x = 0; x<=8; x++)
 		{
 			meta[x].setDisplayName(names[x]);
 			options[x].setItemMeta(meta[x]);
@@ -110,6 +117,7 @@ public class SpawnMerchant
 		SpawnShop.setItem(2, options[5]);
 		SpawnShop.setItem(3, options[6]);
 		SpawnShop.setItem(4, options[7]);
+		SpawnShop.setItem(5, options[8]);
 
 		SpawnShop.setItem(18, options[0]);
 		
@@ -121,6 +129,7 @@ public class SpawnMerchant
 		lore5.clear();
 		lore6.clear();
 		lore7.clear();
+		lore8.clear();
 	}
 	public ItemStack returnCrummySword()
 	{

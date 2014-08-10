@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public class WandProcessor 
 {
-	/*JavaPlugin plugin;
+	JavaPlugin plugin;
 	ItemStack wand;
 	PlayerInteractEvent event;
 	static HashMap<Player, Boolean> casters = new HashMap();
@@ -52,5 +52,5 @@ public class WandProcessor
 			return;
 		}
 		
-	}*/
+	}
 }
