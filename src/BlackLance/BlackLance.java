@@ -4,7 +4,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+
 import Listeners.*;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,6 +21,7 @@ import code.husky.mysql.MySQL;
 import Objectives.ObjectiveProcessor;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
+import Util.Horses;
 import Util.Mine;
 import Util.ResourceNodes;
 public class BlackLance extends JavaPlugin
@@ -42,6 +45,7 @@ public class BlackLance extends JavaPlugin
 	File configFile = new File(this.getDataFolder(), "config.yml");
 	PluginManager pm = getServer().getPluginManager();
 	pm.registerEvents(new CombatListeners(this), this);
+	pm.registerEvents(new Horses(), this);
 	pm.registerEvents(new PlayerListeners(this, configFile), this);
 	pm.registerEvents(new ExperienceListeners(), this);
 	pm.registerEvents(new ObjectiveProcessor(this), this);
