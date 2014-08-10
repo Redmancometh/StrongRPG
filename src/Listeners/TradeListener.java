@@ -1,14 +1,18 @@
 package Listeners;
 
+import Storage.RPGPlayers;
 import Trade.PlayerTrade;
+import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -20,7 +24,7 @@ public class TradeListener implements Listener {
     @EventHandler
     public void startTrade(PlayerInteractEntityEvent event) {
         Entity entTradeWith = event.getRightClicked();
-        if(!(entTradeWith instanceof Player)) return;
+        if(!(RPGPlayers.RPGPlayers.containsKey(entTradeWith))) return;
         Player trader = event.getPlayer();
         Player tradeWith = (Player)entTradeWith;
         PlayerTrade.tryTrade(trader, tradeWith);
@@ -60,6 +64,56 @@ public class TradeListener implements Listener {
             player = event.getPlayer();
             for(PlayerTrade t : trades) {
                 t.trader.sendMessage("Your trade partner has left the game.");
+                PlayerTrade.remove(t);
+            }
+        }
+    }
+
+    @EventHandler
+    public void playerDied(PlayerDeathEvent event) {
+        PlayerTrade trade = PlayerTrade.tradeMap.get(event.getEntity());
+        Player player;
+        if(trade != null) {
+            player = event.getEntity();
+            Player partner = PlayerTrade.getPartner(player);
+            player.sendMessage("Your trade partner has died. :(");
+            PlayerTrade.reclaimItems(player);
+            PlayerTrade.reclaimItems(partner);
+            PlayerTrade.remove(trade);
+            partner.closeInventory();
+        }
+        List<PlayerTrade> trades = PlayerTrade.tradesToPlayerMap.get(event.getEntity());
+        if(trades != null) {
+            player = event.getEntity();
+            for(PlayerTrade t : trades) {
+                t.trader.sendMessage("Your trade partner has died. :(");
+                PlayerTrade.remove(t);
+            }
+        }
+    }
+
+    @EventHandler
+    public void playerMoved(PlayerMoveEvent event) {
+        PlayerTrade trade = PlayerTrade.tradeMap.get(event.getPlayer());
+        Player player;
+        Player partner;
+        if(trade != null) {
+            player = event.getPlayer();
+            partner = PlayerTrade.getPartner(player);
+            if(partner.getLocation().distance(player.getLocation()) > 10) {
+                player.sendMessage("You moved too far from your trade partner.");
+                partner.sendMessage("Your trade partner moved to far away from you.");
+                PlayerTrade.reclaimItems(player);
+                PlayerTrade.reclaimItems(partner);
+                PlayerTrade.remove(trade);
+                partner.closeInventory();
+            }
+        }
+        List<PlayerTrade> trades = PlayerTrade.tradesToPlayerMap.get(event.getPlayer());
+        if(trades != null) {
+            for(PlayerTrade t : trades) {
+                partner = t.trader;
+                partner.sendMessage("Your trade partner moved to far away from you.");
                 PlayerTrade.remove(t);
             }
         }
