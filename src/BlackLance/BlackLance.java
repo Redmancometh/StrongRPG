@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,6 +20,8 @@ import org.bukkit.scheduler.BukkitTask;
 
 import code.husky.mysql.MySQL;
 import Objectives.ObjectiveProcessor;
+import Smithing.SmeltingListeners;
+import Smithing.SmithingListeners;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
 import Util.Horses;
@@ -32,7 +35,7 @@ public class BlackLance extends JavaPlugin
     static Connection c;
     public void onEnable()
     {
-	Bukkit.broadcastMessage("RELOADING TEST THREE");
+	Bukkit.broadcastMessage("RELOADING TEST FOUR");
 	pl=this;
 	MySQL=new MySQL((Plugin) this, "localhost", "3306", "RPG", "root", "enter11284");
 	MySQL.openConnection();
@@ -51,6 +54,8 @@ public class BlackLance extends JavaPlugin
 	pm.registerEvents(new ObjectiveProcessor(this), this);
 	pm.registerEvents(new DropListeners(this), this);
 	pm.registerEvents(new NPCListeners(this), this);
+	pm.registerEvents(new SmeltingListeners(), this);
+	pm.registerEvents(new SmithingListeners(), this);
 	pm.registerEvents(new BlockListeners(this), this);
 	pm.registerEvents(new MenuListeners(this), this);
 	pm.registerEvents(new ItemListeners(this), this);
