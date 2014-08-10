@@ -11,60 +11,37 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
 
+import Storage.RPGPlayers;
 import BlackLance.blm;
 
 public class CombatUtil 
 {
 	Random r = new Random();
 	public int level;
-	public CombatUtil()
-	{
-
-	}
+	public CombatUtil(){}
 	public double generateHit(Player phitter)
 	{
-		if(phitter.getItemInHand()!=null&&phitter.getItemInHand().hasItemMeta()&&phitter.getItemInHand().getItemMeta().hasLore())
+	    if(phitter.getItemInHand()!=null&&phitter.getItemInHand().hasItemMeta()&&phitter.getItemInHand().getItemMeta().hasLore())
+	    {
+		if(phitter.getItemInHand().getItemMeta().getLore().toString().contains("Damage"))
 		{
-			int lowdmg = 0;
-			int highdmg = 0;
-			if(phitter.getItemInHand().getItemMeta().getLore().toString().contains("Damage"))
-			{
-				String damage = phitter.getItemInHand().getItemMeta().getLore().toString();
-				if(damage.charAt(10)=='-'){lowdmg = Integer.parseInt(damage.substring(9,10));}
-				else{lowdmg=Integer.parseInt(damage.substring(9,11));}
-				String[] hcheck = damage.split("-");
-
-				if(hcheck.length==1)
-				{
-					highdmg=Integer.parseInt(hcheck[1].substring(0,1));
-				}
-				if(hcheck.length==2)
-				{
-					if(hcheck[1].charAt(1)==','||hcheck[1].charAt(1)==']'){highdmg=Integer.parseInt(hcheck[1].substring(0,1));}
-					else{highdmg=Integer.parseInt(hcheck[1].substring(0,2));}
-				}
-				if(hcheck.length==3)
-				{
-					if(hcheck[1].charAt(2)==','||hcheck[1].charAt(2)==']'){highdmg=Integer.parseInt(hcheck[1].substring(0,2));}
-					else{highdmg=Integer.parseInt(hcheck[1].substring(0,3));}
-				}
-				double Hit = (r.nextInt(highdmg)+lowdmg)+(phitter.getLevel()*1.25)+2;
-				return Hit;
-			}
-			else
-			{
-				phitter.sendMessage(ChatColor.DARK_RED+"Use a weapon to attack.");
-				return 0;
-			}
+		    int[] damages = RPGPlayers.getRPGPlayer(phitter).getHitDamage(phitter.getItemInHand());
+		    double Hit = (r.nextInt(damages[1])+damages[0])+(phitter.getLevel()*1.25)+2;
+		    return Hit;
 		}
 		else
-		{				
-			phitter.sendMessage(ChatColor.DARK_RED+"Use a weapon to attack.");
-			return 0;
-		}		
+		{
+		    phitter.sendMessage(ChatColor.DARK_RED+"Use a weapon to attack.");
+		    return 0;
+		}
+	    }
+	    else
+	    {				
+		phitter.sendMessage(ChatColor.DARK_RED+"Use a weapon to attack.");
+		return 0;
+	    }		
 	}
 	public double getAbsorption(Player phit) 
 	{
@@ -124,5 +101,5 @@ public class CombatUtil
 		}
 		return level;
 	}
-
+	
 }

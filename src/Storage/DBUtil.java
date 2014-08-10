@@ -19,6 +19,7 @@ public class DBUtil
     public static void setup(Connection c) throws SQLException
     {
 	Statement statement = c.createStatement();
+	statement.execute("CREATE TABLE PlayerItems(playerid INT, mindmg int, maxdmg int, name varchar(60), itemid bigint primary key NOT NULL AUTO_INCREMENT);");    
 	statement.execute("CREATE TABLE Players(UUID varchar(50), uid INT primary key NOT NULL AUTO_INCREMENT, health INT, maxhealth INT, exp INT, x INT, y INT, z INT);");
 	statement.execute("CREATE TABLE Quests(questID int, uid int, progress int, completed int);");
 	statement.execute("CREATE TABLE Resources(type varchar(25), x DECIMAL, y DECIMAL, z DECIMAL, indexer INT primary key NOT NULL AUTO_INCREMENT);");
@@ -48,6 +49,19 @@ public class DBUtil
 	ps.setInt(2, uid);
 	ps.setInt(3, questID);
 	ps.execute();
+    }
+    public static int getComplete(int uid, int questID) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT completed FROM Quests WHERE uid=? AND questid=?");
+	ps.setInt(1, uid);
+	ps.setInt(2, questID);
+	ResultSet rs = ps.executeQuery();
+	while(rs.next())
+	{
+	  return rs.getInt(1);
+	}
+	return 3;
     }
     public static void addPlayer(Player p) throws SQLException
     {
@@ -167,5 +181,34 @@ public class DBUtil
 	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z FROM Resources where type=?");
 	ps.setString(1, type);
 	return ps.executeQuery();
+    }
+    public static ResultSet getAllResourceNodes() throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT x,y,z,type FROM Resources");
+	return ps.executeQuery();
+    }
+    public static int getWeaponData(String itemname, int mindmg, int maxdmg, int PlayerID) throws SQLException
+    {
+	int uid = 0;
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("SELECT itemid FROM PlayerItems where name=? AND mindmg=? AND maxdmg=? AND PlayerID=?");
+	ps.setString(1, itemname);
+	ps.setInt(2, mindmg);
+	ps.setInt(3, maxdmg);
+	ps.setInt(4, PlayerID);
+	ResultSet rs =  ps.executeQuery();
+	while(rs.next()){uid = rs.getInt(1);}
+	return uid;
+    }
+    public static void setWeaponData(String ItemName, int mindmg, int maxdmg, int PlayerID) throws SQLException
+    {
+	PreparedStatement ps = null;
+	ps = BlackLance.BlackLance.getConnection().prepareStatement("INSERT INTO  PlayerItems(playerid, mindmg, maxdmg, name) VALUES(?,?,?,?);");
+	ps.setInt(1, PlayerID);
+	ps.setInt(2, mindmg);
+	ps.setInt(3, maxdmg);
+	ps.setString(4, ItemName);
+	ps.execute();
     }
 }

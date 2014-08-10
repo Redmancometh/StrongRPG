@@ -3,25 +3,15 @@ package BlackLance;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import Listeners.*;
-import net.citizensnpcs.Citizens;
-import net.citizensnpcs.api.npc.NPC;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,14 +19,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import code.husky.mysql.MySQL;
-
-
 import Objectives.ObjectiveProcessor;
+import Smithing.SmeltingListeners;
+import Smithing.SmithingListeners;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
+import Util.Horses;
 import Util.Mine;
 import Util.ResourceNodes;
-
 public class BlackLance extends JavaPlugin
 {
     BukkitTask connect;
@@ -45,6 +35,7 @@ public class BlackLance extends JavaPlugin
     static Connection c;
     public void onEnable()
     {
+	Bukkit.broadcastMessage("RELOADING TEST FOUR");
 	pl=this;
 	MySQL=new MySQL((Plugin) this, "localhost", "3306", "RPG", "root", "enter11284");
 	MySQL.openConnection();
@@ -57,11 +48,14 @@ public class BlackLance extends JavaPlugin
 	File configFile = new File(this.getDataFolder(), "config.yml");
 	PluginManager pm = getServer().getPluginManager();
 	pm.registerEvents(new CombatListeners(this), this);
+	pm.registerEvents(new Horses(), this);
 	pm.registerEvents(new PlayerListeners(this, configFile), this);
 	pm.registerEvents(new ExperienceListeners(), this);
 	pm.registerEvents(new ObjectiveProcessor(this), this);
 	pm.registerEvents(new DropListeners(this), this);
 	pm.registerEvents(new NPCListeners(this), this);
+	pm.registerEvents(new SmeltingListeners(), this);
+	pm.registerEvents(new SmithingListeners(), this);
 	pm.registerEvents(new BlockListeners(this), this);
 	pm.registerEvents(new MenuListeners(this), this);
 	pm.registerEvents(new ItemListeners(this), this);
@@ -98,7 +92,6 @@ public class BlackLance extends JavaPlugin
 	}
 	MySQL.closeConnection();
     }
-
     public void saveIt()
     {
 	this.saveConfig();

@@ -2,12 +2,14 @@ package BlackLance;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -19,13 +21,13 @@ import com.earth2me.essentials.User;
 
 public class RPGPlayer
 {
+    public HashMap<Integer, RPGWeapon> weapons = new HashMap<Integer, RPGWeapon>();
     private int xp;
     private int health;
     private int maxhealth;
     private int uid;
     private Player p;
     private Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
-
     public RPGPlayer(Player p, int uid, int xp, int health, int maxhealth)
     {
 	this.p = p;
@@ -34,7 +36,6 @@ public class RPGPlayer
 	this.health = health;
 	this.maxhealth = maxhealth;
     }
-
     public int getXP()
     {
 	return xp;
@@ -145,6 +146,8 @@ public class RPGPlayer
 		ResultSet rs = DBUtil.getPlayerData(p);
 		RPGPlayer rp = RPGPlayer.createRPGPLayer(rs, p);
 		RPGPlayers.addRPGPlayer(p, rp);
+		try{RPGWeapon.makeWeapons(rp);}
+		catch (SQLException e1){e1.printStackTrace();}
 		scheduleHeals(rp,p);
 	    }
 	    else
@@ -152,6 +155,8 @@ public class RPGPlayer
 		DBUtil.addPlayer(p);
 		RPGPlayer rp = new RPGPlayer(p, DBUtil.getUID(p), 0, 30, 30);
 		RPGPlayers.addRPGPlayer(p, rp);
+		try{RPGWeapon.makeWeapons(rp);}
+		catch (SQLException e1){e1.printStackTrace();}
 		scheduleHeals(rp,p);
 	    }
 
@@ -173,5 +178,10 @@ public class RPGPlayer
 		    }
 		}
 	}.runTaskTimer(BlackLance.pl, 10, 85);
+    }
+    public int[] getHitDamage(ItemStack i)
+    {
+	RPGWeapon w = weapons.get(Integer.parseInt(i.getItemMeta().getLore().get(2).replaceAll("§", "")));
+	return new int[] {w.mindmg,w.maxdmg};
     }
 }

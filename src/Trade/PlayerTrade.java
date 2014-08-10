@@ -168,7 +168,8 @@ public class PlayerTrade {
                         }
                     }
                 }
-
+                player.updateInventory();
+                partner.updateInventory();
                 remove(trade);
                 player.closeInventory();
                 partner.closeInventory();
@@ -219,6 +220,7 @@ public class PlayerTrade {
                 playerInv.addItem(stack);
             }
         }
+        player.updateInventory();
     }
 
     public static int getNextSlot(Inventory inventory) {
@@ -234,10 +236,13 @@ public class PlayerTrade {
     }
 
     public static void remove(PlayerTrade trade) {
-        tradeMap.remove(trade.trader);
-        if(trade.state != TradeState.REQUEST) {
+        if(tradeMap.containsKey(trade.trader)) {
+            tradeMap.remove(trade.trader);
+        }
+        if(tradeMap.containsKey(trade.tradeWith)) {
             tradeMap.remove(trade.tradeWith);
-        } else {
+        }
+        if(tradesToPlayerMap.containsKey(trade.tradeWith)) {
             tradesToPlayerMap.get(trade.tradeWith).remove(trade);
         }
     }
