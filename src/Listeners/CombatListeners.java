@@ -33,7 +33,6 @@ public class CombatListeners implements Listener
     {
 	this.pl = pl;
     }
-
     // This Event
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.MONITOR)
@@ -90,11 +89,8 @@ public class CombatListeners implements Listener
 		    }
 		}
 	    }
-
 	}
-
     }
-
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.LOWEST)
     public void playerHittingMob(EntityDamageByEntityEvent event)
@@ -173,7 +169,7 @@ public class CombatListeners implements Listener
 		    }
 		    if (!(CitizensAPI.getNPCRegistry().isNPC(event.getEntity())))
 		    {
-			p.sendMessage(ChatColor.DARK_RED + "You can't PvP here!");
+			p.sendMessage(ChatColor.RED + "You can't PvP here!");
 		    }
 		}
 	    }
@@ -193,7 +189,7 @@ public class CombatListeners implements Listener
 		}
 		if (!(CitizensAPI.getNPCRegistry().isNPC(event.getEntity())))
 		{
-		    p.sendMessage(ChatColor.DARK_RED + "You can't PvP here!");
+		    p.sendMessage(ChatColor.RED + "You can't PvP here!");
 		}
 	    }
 	}

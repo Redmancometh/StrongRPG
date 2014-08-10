@@ -25,5 +25,8 @@ commands:
       usage: /horse
    resource:
       description: badass horse
+      usage: /horse  
+   fuck:
+      description: badass horse
       usage: /horse         
 depend: [Citizens]

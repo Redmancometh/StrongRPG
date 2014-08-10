@@ -45,6 +45,7 @@ public class BlackLance extends JavaPlugin
     static Connection c;
     public void onEnable()
     {
+	Bukkit.broadcastMessage("RELOADING TEST THREE");
 	pl=this;
 	MySQL=new MySQL((Plugin) this, "localhost", "3306", "RPG", "root", "enter11284");
 	MySQL.openConnection();
