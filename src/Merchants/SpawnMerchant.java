@@ -1,8 +1,6 @@
 package Merchants;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.citizensnpcs.api.event.NPCRightClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,10 +8,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.citizensnpcs.api.event.NPCRightClickEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SpawnMerchant 
-{
+public class SpawnMerchant {
 	Inventory SpawnShop = (Inventory) Bukkit.createInventory(null, 27, "Spawn Shop");
 	ItemStack[] options = new ItemStack[20];
 	String[] names = new String[20];
@@ -30,27 +28,27 @@ public class SpawnMerchant
 	List<String> lore8 = new ArrayList<String>();
 
 	private NPCRightClickEvent event;
-	public SpawnMerchant(NPCRightClickEvent event)
-	{
-		this.event=event;
+
+	public SpawnMerchant(NPCRightClickEvent event) {
+		this.event = event;
 		setData();
 		applyData();
 	}
-	public void openInventory(NPCRightClickEvent event)
-	{
+
+	public void openInventory(NPCRightClickEvent event) {
 		event.getClicker().openInventory(SpawnShop);
 	}
-	public void setData()
-	{
-		names[0]="Minor Healing Potion - 10 Steel Coins";
-		names[1]="Crummy Iron Sword - 20 Steel Coins";
-		names[2]="Basic Iron Sword - 80 Steel Coins";
-		names[3]="Low Quality Leather Coif - 20 Steel Coins";
-		names[4]="Drunk Made Leather Chaps - 20 Steel Coins";
-		names[5]="Basic Leather Boots - 20 Steel Coins";
-		names[6]="Cracked Leather Body Armor - 30 Steel Coins";
-		names[7]="Wand - 30 Steel Coins";
-		names[8]="Baller Wand - 30 Steel Coins";
+
+	public void setData() {
+		names[0] = "Minor Healing Potion - 10 Steel Coins";
+		names[1] = "Crummy Iron Sword - 20 Steel Coins";
+		names[2] = "Basic Iron Sword - 80 Steel Coins";
+		names[3] = "Low Quality Leather Coif - 20 Steel Coins";
+		names[4] = "Drunk Made Leather Chaps - 20 Steel Coins";
+		names[5] = "Basic Leather Boots - 20 Steel Coins";
+		names[6] = "Cracked Leather Body Armor - 30 Steel Coins";
+		names[7] = "Wand - 30 Steel Coins";
+		names[8] = "Baller Wand - 30 Steel Coins";
 
 		options[0] = new ItemStack(Material.POTION);
 		options[1] = new ItemStack(Material.IRON_SWORD);
@@ -63,37 +61,36 @@ public class SpawnMerchant
 		options[8] = new ItemStack(Material.STICK);
 
 		lore0.add("Heals Minor Damage");
-		lore0.add(ChatColor.BLUE+"Sell Value: 3");
-		
+		lore0.add(ChatColor.BLUE + "Sell Value: 3");
+
 		lore1.add("Damage: 2-3");
-		lore1.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore1.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore2.add("Damage: 3-6");
-		lore2.add(ChatColor.BLUE+"Sell Value: 17");
-		
+		lore2.add(ChatColor.BLUE + "Sell Value: 17");
+
 		lore3.add("Defense: 3");
-		lore3.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore3.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore4.add("Defense: 4");
-		lore4.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore4.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore5.add("Defense: 2");
-		lore5.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore5.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore6.add("Defense: 4");
-		lore6.add(ChatColor.BLUE+"Sell Value: 8");
-		
+		lore6.add(ChatColor.BLUE + "Sell Value: 8");
+
 		lore7.add("Damage: 5-6");
-		lore7.add(ChatColor.BLUE+"Sell Value: 8");
-		
+		lore7.add(ChatColor.BLUE + "Sell Value: 8");
+
 		lore8.add("Damage: 55-65");
-		lore8.add(ChatColor.BLUE+"Sell Value: 8");
+		lore8.add(ChatColor.BLUE + "Sell Value: 8");
 	}
-	public void applyData()
-	{
-		for(int x = 0; x<=8; x++)
-		{
-			meta[x]=options[x].getItemMeta();
+
+	public void applyData() {
+		for (int x = 0; x <= 8; x++) {
+			meta[x] = options[x].getItemMeta();
 		}
 		meta[0].setLore(lore0);
 		meta[1].setLore(lore1);
@@ -105,8 +102,7 @@ public class SpawnMerchant
 		meta[7].setLore(lore7);
 		meta[8].setLore(lore8);
 
-		for(int x = 0; x<=8; x++)
-		{
+		for (int x = 0; x <= 8; x++) {
 			meta[x].setDisplayName(names[x]);
 			options[x].setItemMeta(meta[x]);
 		}
@@ -120,7 +116,7 @@ public class SpawnMerchant
 		SpawnShop.setItem(5, options[8]);
 
 		SpawnShop.setItem(18, options[0]);
-		
+
 		lore0.clear();
 		lore1.clear();
 		lore2.clear();
@@ -131,12 +127,12 @@ public class SpawnMerchant
 		lore7.clear();
 		lore8.clear();
 	}
-	public ItemStack returnCrummySword()
-	{
+
+	public ItemStack returnCrummySword() {
 		return options[1];
 	}
-	public ItemStack returnLeatherHelm()
-	{
+
+	public ItemStack returnLeatherHelm() {
 		return options[3];
 	}
 

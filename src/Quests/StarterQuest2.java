@@ -1,24 +1,18 @@
 package Quests;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import Storage.DataGetter;
+import Storage.DataSetter;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
-
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import Merchants.SpawnMerchant;
-import Storage.DataGetter;
-import Storage.DataSetter;
-import Storage.RPGPlayers;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StarterQuest2
-{
+public class StarterQuest2 {
 	private DataGetter dg;
 	private DataSetter ds;
 	ItemStack noobsword = new ItemStack(Material.WOOD_SWORD);
@@ -28,15 +22,14 @@ public class StarterQuest2
 	private NPCRightClickEvent event;
 	private JavaPlugin blacklance;
 	private Player p;
-	List<String> swordlore = new ArrayList<String>(); 
-	List<String> picklore = new ArrayList<String>(); 
+	List<String> swordlore = new ArrayList<String>();
+	List<String> picklore = new ArrayList<String>();
 
 
-	public StarterQuest2(NPCRightClickEvent event, JavaPlugin blacklance)
-	{
-		this.event=event;
-		this.blacklance=blacklance;
-		this.dg =  new DataGetter(blacklance);
+	public StarterQuest2(NPCRightClickEvent event, JavaPlugin blacklance) {
+		this.event = event;
+		this.blacklance = blacklance;
+		this.dg = new DataGetter(blacklance);
 		this.ds = new DataSetter(blacklance);
 	}
 	/*public void starterQuest()

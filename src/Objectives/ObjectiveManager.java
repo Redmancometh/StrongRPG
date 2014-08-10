@@ -1,6 +1,5 @@
 package Objectives;
 
-public class ObjectiveManager 
-{
-	
+public class ObjectiveManager {
+
 }

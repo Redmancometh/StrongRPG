@@ -1,8 +1,6 @@
 package Merchants;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.citizensnpcs.api.event.NPCRightClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,10 +8,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.citizensnpcs.api.event.NPCRightClickEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CrasmeerMerchant 
-{
+public class CrasmeerMerchant {
 	Inventory SpawnShop = (Inventory) Bukkit.createInventory(null, 27, "Crasmeer Shop");
 	ItemStack[] options = new ItemStack[20];
 	String[] names = new String[20];
@@ -40,37 +38,37 @@ public class CrasmeerMerchant
 	List<String> lore18 = new ArrayList<String>();
 
 	private NPCRightClickEvent event;
-	public CrasmeerMerchant(NPCRightClickEvent event)
-	{
-		this.event=event;
+
+	public CrasmeerMerchant(NPCRightClickEvent event) {
+		this.event = event;
 		setData();
 		applyData();
 	}
-	public void openInventory(NPCRightClickEvent event)
-	{
+
+	public void openInventory(NPCRightClickEvent event) {
 		event.getClicker().openInventory(SpawnShop);
 	}
-	public void setData()
-	{
-		names[0]="Minor Healing Potion - 10 Steel Coins";
-		names[1]="Crummy Iron Sword - 20 Steel Coins";
-		names[2]="Basic Iron Sword - 80 Steel Coins";
-		names[3]="Low Quality Leather Coif - 20 Steel Coins";
-		names[4]="Drunk Made Leather Chaps - 20 Steel Coins";
-		names[5]="Basic Leather Boots - 20 Steel Coins";
-		names[6]="Cracked Leather Body Armor - 30 Steel Coins";
-		names[7]="Average Leather Coif - 185 Steel Coins";
-		names[8]="Average Leather Chaps - 190 Steel Coins";
-		names[9]="Average Leather Boots - 185 Steel Coins";
-		names[10]="Average Leather Body Armor - 200 Steel Coins";
-		names[11]="Above Average Leather Body Armor - 200 Steel Coins";
-		names[12]="Average Iron Sword - 250 Steel Coins";
-		names[13]="Wicked Iron Axe - 350 Steel Coins";
-		names[14]=ChatColor.GREEN+"Basic Saddle - 550 Steel Coins";
-		names[15]=ChatColor.AQUA+"Riveted Saddle - 750 Steel Coins";
-		names[16]=ChatColor.GOLD+"Sturdy Saddle - 950 Steel Coins";
-		names[17]=ChatColor.GOLD+"Basic Bow - 95 Steel Coins";
-		names[18]=ChatColor.GOLD+"Arrows - 10 Steel Coins";
+
+	public void setData() {
+		names[0] = "Minor Healing Potion - 10 Steel Coins";
+		names[1] = "Crummy Iron Sword - 20 Steel Coins";
+		names[2] = "Basic Iron Sword - 80 Steel Coins";
+		names[3] = "Low Quality Leather Coif - 20 Steel Coins";
+		names[4] = "Drunk Made Leather Chaps - 20 Steel Coins";
+		names[5] = "Basic Leather Boots - 20 Steel Coins";
+		names[6] = "Cracked Leather Body Armor - 30 Steel Coins";
+		names[7] = "Average Leather Coif - 185 Steel Coins";
+		names[8] = "Average Leather Chaps - 190 Steel Coins";
+		names[9] = "Average Leather Boots - 185 Steel Coins";
+		names[10] = "Average Leather Body Armor - 200 Steel Coins";
+		names[11] = "Above Average Leather Body Armor - 200 Steel Coins";
+		names[12] = "Average Iron Sword - 250 Steel Coins";
+		names[13] = "Wicked Iron Axe - 350 Steel Coins";
+		names[14] = ChatColor.GREEN + "Basic Saddle - 550 Steel Coins";
+		names[15] = ChatColor.AQUA + "Riveted Saddle - 750 Steel Coins";
+		names[16] = ChatColor.GOLD + "Sturdy Saddle - 950 Steel Coins";
+		names[17] = ChatColor.GOLD + "Basic Bow - 95 Steel Coins";
+		names[18] = ChatColor.GOLD + "Arrows - 10 Steel Coins";
 
 		options[0] = new ItemStack(Material.POTION);
 		options[1] = new ItemStack(Material.IRON_SWORD);
@@ -92,66 +90,65 @@ public class CrasmeerMerchant
 		options[17] = new ItemStack(Material.BOW);
 		options[18] = new ItemStack(Material.ARROW);
 		options[18].setAmount(64);
-		
+
 		lore0.add("Heals Minor Damage");
-		lore0.add(ChatColor.BLUE+"Sell Value: 3");
-		
+		lore0.add(ChatColor.BLUE + "Sell Value: 3");
+
 		lore1.add("Damage: 2-3");
-		lore1.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore1.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore2.add("Damage: 3-6");
-		lore2.add(ChatColor.BLUE+"Sell Value: 17");
-		
+		lore2.add(ChatColor.BLUE + "Sell Value: 17");
+
 		lore3.add("Defense: 3");
-		lore3.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore3.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore4.add("Defense: 4");
-		lore4.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore4.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore5.add("Defense: 2");
-		lore5.add(ChatColor.BLUE+"Sell Value: 5");
-		
+		lore5.add(ChatColor.BLUE + "Sell Value: 5");
+
 		lore6.add("Defense: 4");
-		lore6.add(ChatColor.BLUE+"Sell Value: 8");
-		
+		lore6.add(ChatColor.BLUE + "Sell Value: 8");
+
 		lore7.add("Defense: 5");
-		lore7.add(ChatColor.BLUE+"Sell Value: 25");
+		lore7.add(ChatColor.BLUE + "Sell Value: 25");
 
 		lore8.add("Defense: 6");
-		lore8.add(ChatColor.BLUE+"Sell Value: 25");
+		lore8.add(ChatColor.BLUE + "Sell Value: 25");
 
 		lore9.add("Defense: 6");
-		lore9.add(ChatColor.BLUE+"Sell Value: 25");
-		
+		lore9.add(ChatColor.BLUE + "Sell Value: 25");
+
 		lore10.add("Defense: 7");
-		lore10.add(ChatColor.BLUE+"Sell Value: 25");
-		
+		lore10.add(ChatColor.BLUE + "Sell Value: 25");
+
 		lore11.add("Defense: 9");
-		lore11.add(ChatColor.BLUE+"Sell Value: 28");
-		
+		lore11.add(ChatColor.BLUE + "Sell Value: 28");
+
 		lore12.add("Damage: 4-7");
-		lore12.add(ChatColor.BLUE+"Sell Value: 30");
+		lore12.add(ChatColor.BLUE + "Sell Value: 30");
 
 		lore13.add("Damage: 5-9");
-		lore13.add(ChatColor.BLUE+"Sell Value: 30");
+		lore13.add(ChatColor.BLUE + "Sell Value: 30");
 
 		lore14.add("Summons a Chestnut Mare");
-		
+
 		lore15.add("Summons a Black Charger");
-		
+
 		lore16.add("Summons a Battlecharger");
 
 		lore17.add("Damage: 4-7");
-		lore17.add(ChatColor.BLUE+"Sell Value: 30");
-		
+		lore17.add(ChatColor.BLUE + "Sell Value: 30");
+
 		lore18.add("Shoot things with these");
 
 	}
-	public void applyData()
-	{
-		for(int x = 0; x<=18; x++)
-		{
-			meta[x]=options[x].getItemMeta();
+
+	public void applyData() {
+		for (int x = 0; x <= 18; x++) {
+			meta[x] = options[x].getItemMeta();
 		}
 		meta[0].setLore(lore0);
 		meta[1].setLore(lore1);
@@ -173,8 +170,7 @@ public class CrasmeerMerchant
 		meta[17].setLore(lore17);
 		meta[18].setLore(lore18);
 
-		for(int x = 0; x<=18; x++)
-		{
+		for (int x = 0; x <= 18; x++) {
 			meta[x].setDisplayName(names[x]);
 			options[x].setItemMeta(meta[x]);
 		}
@@ -219,12 +215,12 @@ public class CrasmeerMerchant
 		lore17.clear();
 		lore18.clear();
 	}
-	public ItemStack returnCrummySword()
-	{
+
+	public ItemStack returnCrummySword() {
 		return options[1];
 	}
-	public ItemStack returnLeatherHelm()
-	{
+
+	public ItemStack returnLeatherHelm() {
 		return options[3];
 	}
 

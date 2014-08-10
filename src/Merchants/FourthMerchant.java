@@ -1,8 +1,6 @@
 package Merchants;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.citizensnpcs.api.event.NPCRightClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,10 +8,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.citizensnpcs.api.event.NPCRightClickEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FourthMerchant 
-{
+public class FourthMerchant {
 	Inventory SpawnShop = (Inventory) Bukkit.createInventory(null, 27, "Crasmeer Shop");
 	ItemStack[] options = new ItemStack[20];
 	String[] names = new String[20];
@@ -40,37 +38,37 @@ public class FourthMerchant
 	List<String> lore18 = new ArrayList<String>();
 
 	private NPCRightClickEvent event;
-	public FourthMerchant(NPCRightClickEvent event)
-	{
-		this.event=event;
+
+	public FourthMerchant(NPCRightClickEvent event) {
+		this.event = event;
 		setData();
 		applyData();
 	}
-	public void openInventory(NPCRightClickEvent event)
-	{
+
+	public void openInventory(NPCRightClickEvent event) {
 		event.getClicker().openInventory(SpawnShop);
 	}
-	public void setData()
-	{
-		names[0]="Light Healing Potion - 35 Steel Coins";
-		names[1]="Average Iron Sword - 600 Steel Coins";
-		names[2]="Above Average Iron Sword - 700 Steel Coins";
-		names[3]="Rusty Iron Helmet - 500 Steel Coins";
-		names[4]="Rusty Iron Chestplate - 550 Steel Coins";
-		names[5]="Rusty Iron Leggings - 500 Steel Coins";
-		names[6]="Rusty Iron Boots - 490 Steel Coins";
-		names[7]="Reinforced Iron Helmet  - 550 Steel Coins";
-		names[8]="Reinforced Iron Armor - 600 Steel Coins";
-		names[9]="Reinforced Iron Leggings - 550 Steel Coins";
-		names[10]="Reinforced Iron Boots - 530 Steel Coins";
-		names[11]="Above Average Iron Sword - 850 Steel Coins";
-		names[12]="Sharp Iron Sword - 990 Steel Coins";
-		names[13]="Light Scythe - 1000 Steel Coins";
-		names[14]=ChatColor.GREEN+"Basic Saddle - 550 Steel Coins";
-		names[15]=ChatColor.AQUA+"Riveted Saddle - 750 Steel Coins";
-		names[16]=ChatColor.GOLD+"Sturdy Saddle - 950 Steel Coins";
-		names[17]=ChatColor.GOLD+"Wooden Bow - 950 Steel Coins";
-		names[18]=ChatColor.GOLD+"Arrows - 15 Steel Coins";
+
+	public void setData() {
+		names[0] = "Light Healing Potion - 35 Steel Coins";
+		names[1] = "Average Iron Sword - 600 Steel Coins";
+		names[2] = "Above Average Iron Sword - 700 Steel Coins";
+		names[3] = "Rusty Iron Helmet - 500 Steel Coins";
+		names[4] = "Rusty Iron Chestplate - 550 Steel Coins";
+		names[5] = "Rusty Iron Leggings - 500 Steel Coins";
+		names[6] = "Rusty Iron Boots - 490 Steel Coins";
+		names[7] = "Reinforced Iron Helmet  - 550 Steel Coins";
+		names[8] = "Reinforced Iron Armor - 600 Steel Coins";
+		names[9] = "Reinforced Iron Leggings - 550 Steel Coins";
+		names[10] = "Reinforced Iron Boots - 530 Steel Coins";
+		names[11] = "Above Average Iron Sword - 850 Steel Coins";
+		names[12] = "Sharp Iron Sword - 990 Steel Coins";
+		names[13] = "Light Scythe - 1000 Steel Coins";
+		names[14] = ChatColor.GREEN + "Basic Saddle - 550 Steel Coins";
+		names[15] = ChatColor.AQUA + "Riveted Saddle - 750 Steel Coins";
+		names[16] = ChatColor.GOLD + "Sturdy Saddle - 950 Steel Coins";
+		names[17] = ChatColor.GOLD + "Wooden Bow - 950 Steel Coins";
+		names[18] = ChatColor.GOLD + "Arrows - 15 Steel Coins";
 
 		options[0] = new ItemStack(Material.POTION);
 		options[1] = new ItemStack(Material.IRON_SWORD);
@@ -92,66 +90,65 @@ public class FourthMerchant
 		options[17] = new ItemStack(Material.BOW);
 		options[18] = new ItemStack(Material.ARROW);
 		options[18].setAmount(64);
-		
+
 		lore0.add("Heals Light Damage");
-		lore0.add(ChatColor.BLUE+"Sell Value: 7");
-		
+		lore0.add(ChatColor.BLUE + "Sell Value: 7");
+
 		lore1.add("Damage: 6-15");
-		lore1.add(ChatColor.BLUE+"Sell Value: 40");
-		
+		lore1.add(ChatColor.BLUE + "Sell Value: 40");
+
 		lore2.add("Damage: 8-16");
-		lore2.add(ChatColor.BLUE+"Sell Value: 50");
-		
+		lore2.add(ChatColor.BLUE + "Sell Value: 50");
+
 		lore3.add("Defense: 16");
-		lore3.add(ChatColor.BLUE+"Sell Value: 30");
-		
+		lore3.add(ChatColor.BLUE + "Sell Value: 30");
+
 		lore4.add("Defense: 16");
-		lore4.add(ChatColor.BLUE+"Sell Value: 35");
-		
+		lore4.add(ChatColor.BLUE + "Sell Value: 35");
+
 		lore5.add("Defense: 16");
-		lore5.add(ChatColor.BLUE+"Sell Value: 30");
-		
+		lore5.add(ChatColor.BLUE + "Sell Value: 30");
+
 		lore6.add("Defense: 16");
-		lore6.add(ChatColor.BLUE+"Sell Value: 30");
-		
+		lore6.add(ChatColor.BLUE + "Sell Value: 30");
+
 		lore7.add("Defense: 18");
-		lore7.add(ChatColor.BLUE+"Sell Value: 35");
+		lore7.add(ChatColor.BLUE + "Sell Value: 35");
 
 		lore8.add("Defense: 18");
-		lore8.add(ChatColor.BLUE+"Sell Value: 40");
+		lore8.add(ChatColor.BLUE + "Sell Value: 40");
 
 		lore9.add("Defense: 18");
-		lore9.add(ChatColor.BLUE+"Sell Value: 35");
-		
+		lore9.add(ChatColor.BLUE + "Sell Value: 35");
+
 		lore10.add("Defense: 18");
-		lore10.add(ChatColor.BLUE+"Sell Value: 35");
-		
+		lore10.add(ChatColor.BLUE + "Sell Value: 35");
+
 		lore11.add("Damage: 7-22");
-		lore11.add(ChatColor.BLUE+"Sell Value: 50");
-		
+		lore11.add(ChatColor.BLUE + "Sell Value: 50");
+
 		lore12.add("Damage: 9-24");
-		lore12.add(ChatColor.BLUE+"Sell Value: 60");
+		lore12.add(ChatColor.BLUE + "Sell Value: 60");
 
 		lore13.add("Damage: 10-25");
-		lore13.add(ChatColor.BLUE+"Sell Value: 75");
+		lore13.add(ChatColor.BLUE + "Sell Value: 75");
 
 		lore14.add("Summons a Chestnut Mare");
-		
+
 		lore15.add("Summons a Black Charger");
-		
+
 		lore16.add("Summons a Battlecharger");
 
 		lore17.add("Damage: 12-15");
-		lore17.add(ChatColor.BLUE+"Sell Value: 40");
-		
+		lore17.add(ChatColor.BLUE + "Sell Value: 40");
+
 		lore18.add("Shoot things with these");
 
 	}
-	public void applyData()
-	{
-		for(int x = 0; x<=18; x++)
-		{
-			meta[x]=options[x].getItemMeta();
+
+	public void applyData() {
+		for (int x = 0; x <= 18; x++) {
+			meta[x] = options[x].getItemMeta();
 		}
 		meta[0].setLore(lore0);
 		meta[1].setLore(lore1);
@@ -173,8 +170,7 @@ public class FourthMerchant
 		meta[17].setLore(lore17);
 		meta[18].setLore(lore18);
 
-		for(int x = 0; x<=18; x++)
-		{
+		for (int x = 0; x <= 18; x++) {
 			meta[x].setDisplayName(names[x]);
 			options[x].setItemMeta(meta[x]);
 		}
@@ -219,12 +215,12 @@ public class FourthMerchant
 		lore17.clear();
 		lore18.clear();
 	}
-	public ItemStack returnCrummySword()
-	{
+
+	public ItemStack returnCrummySword() {
 		return options[1];
 	}
-	public ItemStack returnLeatherHelm()
-	{
+
+	public ItemStack returnLeatherHelm() {
 		return options[3];
 	}
 
