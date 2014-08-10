@@ -31,7 +31,8 @@ public class HerbloreProcessor
     {
 	if(ItemUtil.getAmountDisplayName("Marigold", inv)>=3)
 	{
-	    p.getInventory().removeItem(new ItemStack(Material.DOUBLE_PLANT,1));
+	    p.getInventory().removeItem(new ItemStack(Material.DOUBLE_PLANT));
+	    Bukkit.broadcastMessage("TYPE : "+p.getInventory().getItem(0).getType());
 	    p.updateInventory();
 	}
     }
