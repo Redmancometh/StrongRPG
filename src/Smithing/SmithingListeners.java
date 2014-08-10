@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -28,7 +27,7 @@ public class SmithingListeners implements Listener
     @EventHandler
     public void openSmithingMenu(PlayerInteractEvent e)
     {
-	if(e.getAction()==Action.RIGHT_CLICK_BLOCK&&e.getClickedBlock().getType()==Material.ANVIL)
+	if(e.getClickedBlock().getType()==Material.ANVIL)
 	{
 	    setData();
 	    applyData();
