@@ -33,6 +33,7 @@ public class BlackLance extends JavaPlugin
     static MySQL MySQL;
     static Plugin pl;
     static Connection c;
+    public static OptionManager optionManager = new OptionManager();
     public void onEnable()
     {
 	Bukkit.broadcastMessage("RELOADING TEST FOUR");

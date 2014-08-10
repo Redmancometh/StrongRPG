@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class OptionManager implements TouchHandler {
+public class OptionManager implements TouchHandler {
     public static Map<OptionListener, List<OptionListener>> listeners = new HashMap<>();
 
     public static OptionListenerHandle register(OptionListener listener, Player npc) {
