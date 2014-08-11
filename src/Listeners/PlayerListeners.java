@@ -46,8 +46,6 @@ import Util.CombatUtil;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
-import com.trc202.CombatTag.CombatTag;
-import com.trc202.CombatTagApi.CombatTagApi;
 
 public class PlayerListeners implements Listener
 {
