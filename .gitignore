@@ -28,3 +28,4 @@
 # IntellIj
 *.idea/
 *.iml
+/classes/
