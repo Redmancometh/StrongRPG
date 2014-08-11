@@ -3,7 +3,6 @@ package Listeners;
 import java.util.HashMap;
 import java.util.List;
 
-import Quests.*;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.DespawnReason;
 import net.citizensnpcs.api.event.NPCDespawnEvent;
@@ -37,6 +36,12 @@ import com.earth2me.essentials.User;
 import Merchants.BlackridgeMerchant;
 import Merchants.CrasmeerMerchant;
 import Merchants.SpawnMerchant;
+import Quests.DemonStart;
+import Quests.KnightQuest;
+import Quests.QuestProcessor;
+import Quests.StableHand;
+import Quests.StarterQuests;
+import Quests.WitchQuest;
 
 public class NPCListeners implements Listener
 {
@@ -126,11 +131,7 @@ public class NPCListeners implements Listener
 		}
 		//StableHand (Crasmeer)
 		if(id==204){StableHand sh = new StableHand(event,blacklance,p);}
-
-        // Test quest
-        if(id == 607) {
-            new TestQuest(event, blacklance).testQuest();
-        }
+		
 	}
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void stopSunlight(EntityCombustEvent event)

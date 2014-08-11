@@ -1,5 +1,4 @@
 package Wands;
-
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;

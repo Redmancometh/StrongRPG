@@ -30,7 +30,7 @@ public class SmeltingListeners implements Listener
 	    Inventory inv = p.getInventory();
 	    if (id == 15)
 	    {
-		if (ItemUtil.getAmountInInventory(p, Material.COAL_ORE) >= 2)
+		if (ItemUtil.getAmountTypeInInventory(inv, Material.COAL_ORE) >= 2)
 		{
 		    inv.removeItem(new ItemStack(Material.COAL_ORE, 2));
 		    inv.removeItem(new ItemStack(Material.IRON_ORE));
@@ -42,7 +42,7 @@ public class SmeltingListeners implements Listener
 	    }
 	    if (id == 14)
 	    {
-		if (ItemUtil.getAmountInInventory(p, Material.COAL_ORE) >= 4)
+		if (ItemUtil.getAmountTypeInInventory(inv, Material.COAL_ORE) >= 4)
 		{
 		    inv.removeItem(new ItemStack(Material.COAL_ORE, 4));
 		    inv.removeItem(new ItemStack(Material.IRON_ORE));
@@ -55,7 +55,7 @@ public class SmeltingListeners implements Listener
 	    {
 		if(!p.getItemInHand().hasItemMeta())
 		{
-		    if (ItemUtil.getAmountInInventory(p, Material.COAL_ORE) >= 6)
+		    if (ItemUtil.getAmountTypeInInventory(inv, Material.COAL_ORE) >= 6)
 		    {
 			inv.removeItem(new ItemStack(Material.COAL_ORE, 6));
 			inv.removeItem(new ItemStack(Material.IRON_INGOT));
