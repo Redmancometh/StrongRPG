@@ -47,4 +47,28 @@ public class ItemUtil
 	}
 	return total;
     }
+    public static void removeByName(Inventory inv, String name, int quantity)
+    {
+	for(ItemStack i : inv)
+	{
+	    if(i!=null)
+	    {
+		if(i.hasItemMeta())
+		{
+		    ItemMeta imeta = i.getItemMeta();
+		    if(imeta.hasDisplayName())
+		    {
+			if(name.equals(imeta.getDisplayName()))
+			{
+			    if(i.getAmount()>quantity)
+			    {
+				i.setAmount(i.getAmount()-quantity);
+			    }
+			    else{inv.remove(i);}
+			}
+		    }
+		}
+	    }
+	}
+    }
 }

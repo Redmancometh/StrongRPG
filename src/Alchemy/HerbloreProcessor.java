@@ -31,8 +31,8 @@ public class HerbloreProcessor
     {
 	if(ItemUtil.getAmountDisplayName("Marigold", inv)>=3)
 	{
-	    p.getInventory().removeItem(new ItemStack(Material.DOUBLE_PLANT));
-	    Bukkit.broadcastMessage("TYPE : "+p.getInventory().getItem(0).getType());
+	    ItemUtil.removeByName(p.getInventory(), "Marigold", 3);
+	    p.getInventory().addItem(getMixture(p.getInventory(), "Marigold Mixture"));
 	    p.updateInventory();
 	}
     }
@@ -49,5 +49,13 @@ public class HerbloreProcessor
 	{
 	    
 	}
+    }
+    public static ItemStack getMixture(Inventory inv, String itemname)
+    {
+	ItemStack mixture = new ItemStack(Material.POTION);
+	ItemMeta imeta = mixture.getItemMeta();
+	imeta.setDisplayName(itemname);
+	mixture.setItemMeta(imeta);
+	return mixture;
     }
 }
