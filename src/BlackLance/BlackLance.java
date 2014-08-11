@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import Alchemy.HerbloreListeners;
 import Listeners.*;
 
 import org.bukkit.Bukkit;
@@ -33,10 +34,9 @@ public class BlackLance extends JavaPlugin
     static MySQL MySQL;
     static Plugin pl;
     static Connection c;
-    public static OptionManager optionManager = new OptionManager();
     public void onEnable()
     {
-	Bukkit.broadcastMessage("RELOADING TEST FOUR");
+	Bukkit.broadcastMessage("RELOADING TEST FIVE");
 	pl=this;
 	MySQL=new MySQL((Plugin) this, "localhost", "3306", "RPG", "root", "enter11284");
 	MySQL.openConnection();
@@ -57,11 +57,13 @@ public class BlackLance extends JavaPlugin
 	pm.registerEvents(new NPCListeners(this), this);
 	pm.registerEvents(new SmeltingListeners(), this);
 	pm.registerEvents(new SmithingListeners(), this);
+	pm.registerEvents(new HerbloreListeners(), this);
 	pm.registerEvents(new BlockListeners(this), this);
 	pm.registerEvents(new MenuListeners(this), this);
 	pm.registerEvents(new ItemListeners(this), this);
 	pm.registerEvents(new ConsumableListener(this), this);
 	pm.registerEvents(new TradeListener(), this);
+	pm.registerEvents(new Alchemy.MenuListeners(), this);
 	getCommand("horse").setExecutor(new CommandParser());
 	getCommand("setup").setExecutor(new CommandParser());
 	getCommand("blevel").setExecutor(new CommandParser());
