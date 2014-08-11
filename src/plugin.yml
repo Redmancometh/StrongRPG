@@ -1,0 +1,32 @@
+name: BlackLance
+main: BlackLance.BlackLance
+version: 1.0
+commands:
+   setup:
+      description: Join the game.
+      usage: /join
+   blreload:
+      description: Reload
+      usage: /breload
+   blevel:
+      description: Reload
+      usage: /breload
+   bs:
+      description: Reload
+      usage: /breload
+   getLoc:
+      description: get Location
+      usage: /getLoc
+   horse:
+      description: badass horse
+      usage: /horse
+   lookup:
+      description: badass horse
+      usage: /horse
+   resource:
+      description: badass horse
+      usage: /horse  
+   fuck:
+      description: badass horse
+      usage: /horse         
+depend: [Citizens]
