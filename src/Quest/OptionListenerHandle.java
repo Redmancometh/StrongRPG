@@ -1,12 +1,12 @@
 package Quest;
 
-import org.bukkit.entity.Player;
+import net.citizensnpcs.api.npc.NPC;
 
 public class OptionListenerHandle {
     public OptionListener listener;
-    public Player npc;
+    public NPC npc;
 
-    public OptionListenerHandle(OptionListener listener, Player npc) {
+    public OptionListenerHandle(OptionListener listener, NPC npc) {
         this.listener = listener;
         this.npc = npc;
     }

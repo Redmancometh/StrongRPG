@@ -14,7 +14,7 @@ public class TestQuest implements OptionListener {
     private Player player;
 
     public TestQuest(NPCRightClickEvent event, JavaPlugin plugin) {
-        OptionManager.register(this, (Player)event.getNPC());
+        OptionManager.register(this, event.getNPC());
         this.event = event;
         this.plugin = plugin;
         this.player = event.getClicker();
@@ -23,7 +23,7 @@ public class TestQuest implements OptionListener {
     public void testQuest() {
         Player player = event.getClicker();
         player.sendMessage("Hey, choose an option!");
-        QuestUtil.createOptions(player, (Player)event.getNPC(), new String[] {
+        QuestUtil.createOptions(player, event.getNPC(), new String[] {
                 "Yo man we got options",
                 "I'm an option!",
                 "WEEEEEEEEEEEEEE"
