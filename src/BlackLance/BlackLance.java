@@ -23,6 +23,7 @@ import com.gmail.filoghost.holograms.api.Hologram;
 
 import code.husky.mysql.MySQL;
 import Objectives.ObjectiveProcessor;
+import Parties.PartyCommands;
 import Smithing.SmeltingListeners;
 import Smithing.SmithingListeners;
 import Storage.DBUtil;
@@ -72,6 +73,13 @@ public class BlackLance extends JavaPlugin
 	getCommand("blreload").setExecutor(new CommandParser());
 	getCommand("lookup").setExecutor(new CommandParser());
 	getCommand("resource").setExecutor(new CommandParser());
+	getCommand("p").setExecutor(new PartyCommands());
+	getCommand("party").setExecutor(new PartyCommands());
+	getCommand("invite").setExecutor(new PartyCommands());
+	getCommand("acceptinvite").setExecutor(new PartyCommands());
+	getCommand("makeparty").setExecutor(new PartyCommands());
+	getCommand("leaveparty").setExecutor(new PartyCommands());
+	getCommand("kickfromparty").setExecutor(new PartyCommands());
 	net.citizensnpcs.api.CitizensAPI.getTraitFactory().registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(blm.class).withName("blm"));
 	HashMap<Location, Material> toRegen = Mine.getRegen();
 	Iterable<Location> locar = toRegen.keySet();

@@ -2,49 +2,26 @@ package Listeners;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import net.citizensnpcs.api.event.NPCDeathEvent;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftItem;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ExperienceOrb;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import com.comphenix.example.EntityHider;
-import com.comphenix.example.EntityHider.Policy;
-
 import BlackLance.BlackLance;
 import BlackLance.RPGPlayer;
 import BlackLance.RPGWeapon;
 import Storage.RPGPlayers;
-import Util.CombatUtil;
-import Util.DropUtil;
-
 public class DropListeners implements Listener
 {
     private ItemStack drop = new ItemStack(Material.WOOD);
     private ItemMeta dropmeta = drop.getItemMeta();
-    private int level;
     private BlackLance blacklance;
 
     public DropListeners(BlackLance blacklance)

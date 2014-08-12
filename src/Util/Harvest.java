@@ -19,6 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import BlackLance.BlackLance;
+import BlackLance.RPGPlayer;
 import Storage.RPGPlayers;
 
 import com.comphenix.example.EntityHider;
@@ -76,7 +77,8 @@ public class Harvest
 		    CraftItem ci = (CraftItem) p.getWorld().dropItem(b.getLocation(), harvested);
 		    du.hide(p, ci);
 		    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-		    RPGPlayers.addXP(p, 5);
+		    RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
+		    rp.addXP(5);
 		    hologram.delete();
 		    ResourceNodes.resourceLabels.get(b).delete();
 		    ResourceNodes.resourceLabels.remove(b);

@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
+import Parties.Party;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
 
@@ -28,6 +29,7 @@ public class RPGPlayer
     private int maxhealth;
     private int uid;
     public Player p;
+    public Party invited;
     public BukkitTask regenTask;
     private Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
     public RPGPlayer(Player p, int uid, int xp, int health, int maxhealth)
@@ -45,7 +47,28 @@ public class RPGPlayer
 
     public int getHealth(){return health;}
     public int getMaxHealth(){return maxhealth;}
-    public void addXP(double d){xp = xp += d;}
+    public void addXP(double d)
+    {
+	this.xp += d;
+	User u = this.getUser(p);
+	if (this.getXP() >= 100)
+	{
+	    float cexp = (p.getExp() * p.getExpToLevel());
+	    while (this.getXP() >= 100)
+	    {
+		if (p.getExpToLevel() - cexp == 1)
+		{
+		    p.sendMessage(ChatColor.GOLD + "Congratulations on level " + (p.getLevel() + 1) + "!");
+		    this.setMaxHealth(p, false);
+		    String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + this.getHealth() + "/" + this.getMaxHealth();
+		    BarAPI.setMessage(p, healthdisplay, (Math.abs(this.getHealth() / this.getMaxHealth()) * 100));
+		}
+		u.giveExp(1);
+		this.setXP((int) (this.getXP() - 100));
+	    }
+	}
+	Bukkit.broadcastMessage(d+"xp");
+    }
     public void setXP(int d){this.xp = d;}
     public void setMaxHealth(final Player p, final boolean levelup)
     {
@@ -145,7 +168,6 @@ public class RPGPlayer
 		catch (SQLException e1){e1.printStackTrace();}
 		rp.scheduleHeals();
 	    }
-
 	}
     }
     public void scheduleHeals()

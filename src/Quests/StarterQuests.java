@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import BlackLance.RPGPlayer;
 import Merchants.SpawnMerchant;
 import Storage.DataGetter;
 import Storage.DataSetter;
@@ -104,7 +105,8 @@ public class StarterQuests
 						hm.setDisplayName("Crummy Leather Helm");
 						helm.setItemMeta(hm);
 						p.getInventory().addItem(sm.returnLeatherHelm());
-						RPGPlayers.addXP(p, 1200);
+						RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
+						rp.addXP(1200);
 						p.updateInventory();
 					}
 				}
@@ -120,7 +122,8 @@ public class StarterQuests
 						p.sendMessage(ChatColor.DARK_GREEN+"Guide:"+ChatColor.GREEN+" Good job here is your stuff!");
 						p.sendMessage(ChatColor.GOLD+"You have received a Crummy Iron Sword!");
 						p.getInventory().addItem(sm.returnCrummySword());
-						RPGPlayers.addXP(p, 1200);
+						RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
+						rp.addXP(1200);
 						p.updateInventory();
 					}
 				}

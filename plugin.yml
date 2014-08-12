@@ -26,8 +26,26 @@ commands:
    resource:
       description: badass horse
       usage: /horse  
-   fuck:
+   p:
       description: badass horse
-      usage: /horse         
+      usage: /horse
+   party:
+      description: badass horse
+      usage: /horse
+   acceptinvite:
+      description: badass horse
+      usage: /horse
+   makeparty:
+      description: make a party
+      usage: /makeparty
+   invite:
+      description: make a party
+      usage: /makeparty
+   leaveparty:
+      description: make a party
+      usage: /makeparty
+   kickfromparty:
+      description: make a party
+      usage: /makeparty
 depend: [Citizens]
 softdepend: [HolographicDisplays]
