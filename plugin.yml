@@ -30,3 +30,4 @@ commands:
       description: badass horse
       usage: /horse         
 depend: [Citizens]
+softdepend: [HolographicDisplays]

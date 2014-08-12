@@ -95,21 +95,7 @@ public class PlayerListeners implements Listener
 	    }
 	    RPGWeapon.makeWeapons(rp);
 	    rp.setMaxHealth(p, false);
-	    healTask = new BukkitRunnable()
-	    {
-		public void run()
-		{
-		    if (!p.isDead())
-		    {
-			rp.healPlayer(((p.getLevel()) + 2), p);
-			p.setHealth((double) rp.getHealth() / (double) rp.getMaxHealth() * 20);
-			String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + rp.getHealth() + "/" + rp.getMaxHealth();
-			float health = ((float) rp.getHealth() / (float) rp.getMaxHealth());
-			rp.setMaxHealth(p, false);
-			BarAPI.setMessage(p, healthdisplay, health * 100);
-		    }
-		}
-	    }.runTaskTimer(pl, 10, 65);
+	    rp.scheduleHeals();
 	}
 	if (event.getPlayer() != null)
 	{
@@ -130,20 +116,8 @@ public class PlayerListeners implements Listener
 	    }
 	}
     }
-
     @EventHandler
-    public void onDeath(PlayerDeathEvent e)
-    {
-	Player p = e.getEntity();
-	RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
-    }
-
-    @EventHandler
-    public void onLogout(PlayerQuitEvent e)
-    {
-	healTask.cancel();
-    }
-
+    public void onLogout(PlayerQuitEvent e){RPGPlayers.getRPGPlayer(e.getPlayer()).regenTask.cancel();}
     @EventHandler
     public void returnHome(PlayerRespawnEvent event) throws Exception
     {
@@ -189,7 +163,6 @@ public class PlayerListeners implements Listener
 	    event.setCancelled(true);
 	}
     }
-
     @EventHandler
     public void purseDrop(PlayerDropItemEvent e)
     {
@@ -199,7 +172,6 @@ public class PlayerListeners implements Listener
 	    e.setCancelled(true);
 	}
     }
-
     @EventHandler
     public void chatFormat(AsyncPlayerChatEvent event)
     {
@@ -207,7 +179,6 @@ public class PlayerListeners implements Listener
 	int level = p.getLevel();
 	event.setFormat("[" + ChatColor.BLUE + level + ChatColor.RESET + "] " + ChatColor.GRAY + "%s: %s ");
     }
-
     @EventHandler
     public void purseClick(InventoryClickEvent event)
     {
@@ -216,7 +187,6 @@ public class PlayerListeners implements Listener
 	    event.setCancelled(true);
 	}
     }
-
     @EventHandler
     public void stopFire(EntityCombustEvent event)
     {

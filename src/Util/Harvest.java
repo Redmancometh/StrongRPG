@@ -32,6 +32,7 @@ public class Harvest
     ItemMeta harvestmeta;
     String harvestname = "";
     Block b;
+    
     public Harvest(Block b, Player p, BlackLance blacklance)
     {
 	this.b = b;
@@ -51,7 +52,7 @@ public class Harvest
 	new BukkitRunnable()
 	{
 	    int x = 0;
-	    Location loc1 = b.getLocation().add(new Location(p.getWorld(),.5,1.6,0));
+	    Location loc1 = b.getLocation().add(new Location(p.getWorld(),.5,1.4,.5));
 	    Hologram hologram = HolographicDisplaysAPI.createIndividualHologram(blacklance, loc1, p, "\u25A0");
 	    String loadingbar = "\u25A0";
 	    public void run()
@@ -60,7 +61,7 @@ public class Harvest
 		hologram.setLine(0, ChatColor.YELLOW+loadingbar);
 		hologram.update();
 		x++;
-		if (x == 5)
+		if (x == 4)
 		{
 		    DropUtil du = new DropUtil(blacklance);
 		    ItemStack harvested = new ItemStack(Material.HAY_BLOCK);
@@ -77,24 +78,12 @@ public class Harvest
 		    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		    RPGPlayers.addXP(p, 5);
 		    hologram.delete();
+		    ResourceNodes.resourceLabels.get(b).delete();
+		    ResourceNodes.resourceLabels.remove(b);
 		    this.cancel();
 		}
 	    }
 	}.runTaskTimer(blacklance, 10, 10);
-	new BukkitRunnable()
-	{
-	    public void run()
-	    {
-		Collections.shuffle(ResourceNodes.hayLocations);
-		boolean set = false;
-		while(!set)
-		{
-		    Block b = ResourceNodes.hayLocations.get(0).getBlock();
-		    if(b.getType()!=Material.HAY_BLOCK){b.setType(Material.HAY_BLOCK);set=true;}
-		    else{Collections.shuffle(ResourceNodes.hayLocations);}
-		}
-	    }
-	}.runTaskLater(blacklance, 600);
-
+	new BukkitRunnable(){public void run(){ResourceNodes.replaceHay(b);}}.runTaskLater(blacklance, 60);
     }
 }

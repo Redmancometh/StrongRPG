@@ -19,6 +19,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import com.gmail.filoghost.holograms.api.Hologram;
+
 import code.husky.mysql.MySQL;
 import Objectives.ObjectiveProcessor;
 import Smithing.SmeltingListeners;
@@ -94,6 +96,7 @@ public class BlackLance extends JavaPlugin
 	    catch (SQLException e){e.printStackTrace(); }
 	}
 	MySQL.closeConnection();
+	for(Hologram h : ResourceNodes.resourceLabels.values()){h.delete();}
     }
     public void saveIt()
     {

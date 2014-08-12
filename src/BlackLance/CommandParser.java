@@ -21,6 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
+import Alchemy.HealingPotion;
 import Storage.DBUtil;
 import Storage.RPGPlayers;
 
@@ -72,7 +73,7 @@ public class CommandParser implements CommandExecutor
 	}
 	if (cmd.getName().equalsIgnoreCase("horse") && (sender instanceof Player) && args.length == 2)
 	{
-	    if (p.hasPermission("bl.dhorse"))
+	    if (p.isOp())
 	    {
 		if (args[1].equalsIgnoreCase("skeleton"))
 		{
@@ -96,6 +97,7 @@ public class CommandParser implements CommandExecutor
 	}
 	if(cmd.getName().equalsIgnoreCase("lookup"))
 	{
+	    p.getInventory().addItem(HealingPotion.Light.potionItem);
 	    RPGPlayer rp = RPGPlayers.getRPGPlayer(p);
 	    Bukkit.broadcastMessage(rp.getHealth()+" HEALTH");
 	}

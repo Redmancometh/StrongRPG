@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 import Storage.DBUtil;
 import Storage.RPGPlayers;
@@ -26,7 +27,8 @@ public class RPGPlayer
     private int health;
     private int maxhealth;
     private int uid;
-    private Player p;
+    public Player p;
+    public BukkitTask regenTask;
     private Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
     public RPGPlayer(Player p, int uid, int xp, int health, int maxhealth)
     {
@@ -41,26 +43,10 @@ public class RPGPlayer
 	return xp;
     }
 
-    public int getHealth()
-    {
-	return health;
-    }
-
-    public int getMaxHealth()
-    {
-	return maxhealth;
-    }
-
-    public void addXP(int added)
-    {
-	xp = xp += added;
-    }
-
-    public void setXP(int d)
-    {
-	this.xp = d;
-    }
-
+    public int getHealth(){return health;}
+    public int getMaxHealth(){return maxhealth;}
+    public void addXP(double d){xp = xp += d;}
+    public void setXP(int d){this.xp = d;}
     public void setMaxHealth(final Player p, final boolean levelup)
     {
 	BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
@@ -148,7 +134,7 @@ public class RPGPlayer
 		RPGPlayers.addRPGPlayer(p, rp);
 		try{RPGWeapon.makeWeapons(rp);}
 		catch (SQLException e1){e1.printStackTrace();}
-		scheduleHeals(rp,p);
+		rp.scheduleHeals();
 	    }
 	    else
 	    {
@@ -157,28 +143,29 @@ public class RPGPlayer
 		RPGPlayers.addRPGPlayer(p, rp);
 		try{RPGWeapon.makeWeapons(rp);}
 		catch (SQLException e1){e1.printStackTrace();}
-		scheduleHeals(rp,p);
+		rp.scheduleHeals();
 	    }
 
 	}
     }
-    public static void scheduleHeals(final RPGPlayer rp, final Player p)
+    public void scheduleHeals()
     {
-	new BukkitRunnable()
+	regenTask = new BukkitRunnable()
 	{
 		public void run()
 		{
 		    if (!p.isDead())
 		    {
-			rp.healPlayer(((p.getLevel()) + 2), p);
-			p.setHealth((double)rp.getHealth() / (double)rp.getMaxHealth() * 20);
-			String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + rp.getHealth() + "/" + rp.getMaxHealth();
-			float health = ((float)rp.getHealth()/(float)rp.getMaxHealth());
+			RPGPlayer.this.healPlayer(((p.getLevel()) + 2), p);
+			p.setHealth((double)RPGPlayer.this.getHealth() / (double)RPGPlayer.this.getMaxHealth() * 20);
+			String healthdisplay = ChatColor.DARK_GREEN + "Health:  " + ChatColor.DARK_RED + RPGPlayer.this.getHealth() + "/" + RPGPlayer.this.getMaxHealth();
+			float health = ((float)RPGPlayer.this.getHealth()/(float)RPGPlayer.this.getMaxHealth());
 			BarAPI.setMessage(p, healthdisplay, health*100);
 		    }
 		}
 	}.runTaskTimer(BlackLance.pl, 10, 85);
     }
+    public void cancelHeals(){this.regenTask.cancel();}
     public int[] getHitDamage(ItemStack i)
     {
 	RPGWeapon w = weapons.get(Integer.parseInt(i.getItemMeta().getLore().get(2).replaceAll("§", "")));
